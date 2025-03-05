@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../core/models/todo_model.dart';
+import '../../../../core/models/todo_model.dart';
 
 part 'filtered_todos_state.dart';
 

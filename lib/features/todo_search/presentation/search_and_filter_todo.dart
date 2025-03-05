@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/utils/cubits_export.dart';
 import '../../../core/models/todo_model.dart';
 import '../../../core/utils/debounce.dart';
+import '../../todo_filter/on_bloc/todo_filter_bloc.dart';
+import '../on_block/todo_search_bloc.dart';
 
 class SearchAndFilterTodo extends StatelessWidget {
   SearchAndFilterTodo({super.key});
@@ -20,11 +21,20 @@ class SearchAndFilterTodo extends StatelessWidget {
             filled: true,
             prefixIcon: Icon(Icons.search),
           ),
+// ! When using CUBIT
+          // onChanged: (String? newSearchTerm) {
+          //   if (newSearchTerm != null) {
+          //     debounce.run(() {
+          //       context.read<TodoSearchCubit>().setSearchTerm(newSearchTerm);
+          //     });
+          //   }
+          // },
+// ! When using BLoC
           onChanged: (String? newSearchTerm) {
             if (newSearchTerm != null) {
-              debounce.run(() {
-                context.read<TodoSearchCubit>().setSearchTerm(newSearchTerm);
-              });
+              context
+                  .read<TodoSearchBloc>()
+                  .add(SetSearchTermEvent(newSearchTerm: newSearchTerm));
             }
           },
         ),
@@ -44,7 +54,12 @@ class SearchAndFilterTodo extends StatelessWidget {
   Widget filterButton(BuildContext context, Filter filter) {
     return TextButton(
       onPressed: () {
-        context.read<TodoFilterCubit>().changeFilter(filter);
+// ! When using CUBIT
+        // context.read<TodoFilterCubit>().changeFilter(filter);
+// ! When using BLoC
+        context
+            .read<TodoFilterBloc>()
+            .add(ChangeFilterEvent(newFilter: filter));
       },
       child: Text(
         filter == Filter.all
@@ -61,7 +76,10 @@ class SearchAndFilterTodo extends StatelessWidget {
   }
 
   Color textColor(BuildContext context, Filter filter) {
-    final currentFilter = context.watch<TodoFilterCubit>().state.filter;
+// ! When using CUBIT
+    // final currentFilter = context.watch<TodoFilterCubit>().state.filter;
+// ! When using BLoC
+    final currentFilter = context.watch<TodoFilterBloc>().state.filter;
     return currentFilter == filter ? Colors.blue : Colors.grey;
   }
 }
