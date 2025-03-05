@@ -7,8 +7,8 @@ import 'package:equatable/equatable.dart';
 
 import '../../core/models/todo_model.dart';
 import '../todo_filter/todo_filter_cubit.dart';
-import '../todo_list/todo_list_cubit.dart';
-import '../todo_search/todo_search_cubit.dart';
+import '../todo_list/on_cubit/todo_list_cubit.dart';
+import '../todo_search/on_cubit/todo_search_cubit.dart';
 
 part 'filtered_todos_state.dart';
 

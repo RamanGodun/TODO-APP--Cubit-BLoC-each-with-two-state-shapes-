@@ -1,9 +1,7 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../features/cubits_export.dart';
+import '../../../core/utils/cubits_export.dart';
 import '../../../core/models/todo_model.dart';
 
 class ShowTodos extends StatelessWidget {
@@ -105,7 +103,7 @@ class _TodoItemState extends State<TodoItem> {
         showDialog(
           context: context,
           builder: (context) {
-            bool _error = false;
+            bool error = false;
             textController.text = widget.todo.desc;
 
             return StatefulBuilder(
@@ -116,7 +114,7 @@ class _TodoItemState extends State<TodoItem> {
                     controller: textController,
                     autofocus: true,
                     decoration: InputDecoration(
-                      errorText: _error ? "Value cannot be empty" : null,
+                      errorText: error ? "Value cannot be empty" : null,
                     ),
                   ),
                   actions: [
@@ -127,8 +125,8 @@ class _TodoItemState extends State<TodoItem> {
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          _error = textController.text.isEmpty ? true : false;
-                          if (!_error) {
+                          error = textController.text.isEmpty ? true : false;
+                          if (!error) {
                             context.read<TodoListCubit>().editTodo(
                                   widget.todo.id,
                                   textController.text,
