@@ -5,14 +5,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../core/models/todo_model.dart';
-import '../todo_filter/todo_filter_cubit.dart';
-import '../todo_list/on_cubit/todo_list_cubit.dart';
-import '../todo_search/on_cubit/todo_search_cubit.dart';
+import '../../../core/models/todo_model.dart';
+import '../../todo_filter/todo_filter_cubit.dart';
+import '../../todos_list/on_cubit/todo_list_cubit.dart';
+import '../../todo_search/on_cubit/todo_search_cubit.dart';
 
 part 'filtered_todos_state.dart';
 
-class FilteredTodosCubit extends Cubit<FilteredTodosState> {
+class FilteredTodosCubitWithStreamSubscriptionStateShape
+    extends Cubit<FilteredTodosStateWithStreamSubscriptionStateShape> {
   late StreamSubscription todoFilterSubscription;
   late StreamSubscription todoSearchSubscription;
   late StreamSubscription todoListSubscription;
@@ -23,12 +24,13 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
   final TodoSearchCubit todoSearchCubit;
   final TodoListCubit todoListCubit;
 
-  FilteredTodosCubit({
+  FilteredTodosCubitWithStreamSubscriptionStateShape({
     required this.initialTodos,
     required this.todoFilterCubit,
     required this.todoSearchCubit,
     required this.todoListCubit,
-  }) : super(FilteredTodosState(filteredTodos: initialTodos)) {
+  }) : super(FilteredTodosStateWithStreamSubscriptionStateShape(
+            filteredTodos: initialTodos)) {
     todoFilterSubscription =
         todoFilterCubit.stream.listen((TodoFilterState todoFilterState) {
       setFilteredTodos();

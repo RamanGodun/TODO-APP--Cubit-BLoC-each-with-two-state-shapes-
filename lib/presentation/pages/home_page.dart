@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../features/todo_list/presentation/create_todo.dart';
+import 'create_todo.dart';
 import '../../features/todo_search/presentation/search_and_filter_todo.dart';
-import '../../features/todo_list/presentation/show_todos.dart';
-import '../../features/active_todo_count/presentation/todo_header.dart';
+import 'show_todos.dart';
+import '../../features/header/presentation/todo_header.dart';
 
-class TodosPage extends StatelessWidget {
-  const TodosPage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

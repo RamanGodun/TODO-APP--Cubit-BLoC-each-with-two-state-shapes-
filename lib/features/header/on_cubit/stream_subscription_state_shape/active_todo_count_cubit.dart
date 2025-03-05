@@ -3,21 +3,23 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../core/models/todo_model.dart';
-import '../../todo_list/on_cubit/todo_list_cubit.dart';
+import '../../../../core/models/todo_model.dart';
+import '../../../todos_list/on_cubit/todo_list_cubit.dart';
 
 part 'active_todo_count_state.dart';
 
-class ActiveTodoCountCubit extends Cubit<ActiveTodoCountState> {
+class ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape
+    extends Cubit<ActiveTodoCountStateWithUsingStreamSubscriptionStateShape> {
   late final StreamSubscription todoListSubscription;
 
   final int initialActiveTodoCount;
   final TodoListCubit todoListCubit;
 
-  ActiveTodoCountCubit({
+  ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape({
     required this.initialActiveTodoCount,
     required this.todoListCubit,
-  }) : super(ActiveTodoCountState(activeTodoCount: initialActiveTodoCount)) {
+  }) : super(ActiveTodoCountStateWithUsingStreamSubscriptionStateShape(
+            activeTodoCount: initialActiveTodoCount)) {
     todoListSubscription =
         todoListCubit.stream.listen((TodoListState todoListState) {
       print('todoListState: $todoListState');

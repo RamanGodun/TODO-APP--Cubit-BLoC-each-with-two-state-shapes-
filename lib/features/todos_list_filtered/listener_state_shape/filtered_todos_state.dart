@@ -1,12 +1,12 @@
 part of 'filtered_todos_cubit.dart';
 
-final class FilteredTodosState extends Equatable {
-  const FilteredTodosState({
+final class FilteredTodosStateWithListenerStateShape extends Equatable {
+  const FilteredTodosStateWithListenerStateShape({
     required this.filteredTodos,
   });
 
-  factory FilteredTodosState.initial() {
-    return const FilteredTodosState(filteredTodos: []);
+  factory FilteredTodosStateWithListenerStateShape.initial() {
+    return const FilteredTodosStateWithListenerStateShape(filteredTodos: []);
   }
 
   final List<Todo> filteredTodos;
@@ -17,10 +17,10 @@ final class FilteredTodosState extends Equatable {
   @override
   String toString() => 'FilteredTodosState(filteredTodos: $filteredTodos)';
 
-  FilteredTodosState copyWith({
+  FilteredTodosStateWithListenerStateShape copyWith({
     List<Todo>? filteredTodos,
   }) {
-    return FilteredTodosState(
+    return FilteredTodosStateWithListenerStateShape(
       filteredTodos: filteredTodos ?? this.filteredTodos,
     );
   }
