@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/config/app_bloc_observer.dart';
 import 'core/config/app_theme.dart';
 import 'core/utils/bloc_exports.dart';
 import 'core/utils/cubits_export.dart';
 
-import 'presentation/pages/home_page.dart';
+import 'presentation/home_page.dart';
 
 void main() {
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 
@@ -105,3 +107,18 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+/*
+
+     ! NEED TO DO next:
+
+? 1. Data persistence (SQLie or Hive)
+? 2. Additional state management ("In Progress" state with CircularProgressIndicator)
+? 3. Error dialog
+? 4. Pagination (traditional or infinite scrolling)
+? 5. Use TextWidget, not Text(...)
+? 6. Use custom showDialog
+? 7. Refactor design
+? 8. Use onGenerate routes navigation if add extra pages
+
+ */

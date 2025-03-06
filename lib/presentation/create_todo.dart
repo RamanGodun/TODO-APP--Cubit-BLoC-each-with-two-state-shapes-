@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/utils/bloc_exports.dart';
+import '../core/utils/bloc_exports.dart';
 
 // import '../../features/todos_list/on_cubit/todo_list_cubit.dart'; // ! when using CUBIT
 

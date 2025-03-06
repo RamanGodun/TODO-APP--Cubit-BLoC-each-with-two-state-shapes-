@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/models/todo_model.dart';
-import '../../core/utils/bloc_exports.dart'; // ! when using BLoC
+import '../core/models/todo_model.dart';
+import '../core/utils/bloc_exports.dart'; // ! when using BLoC
 // import '../../core/utils/cubits_export.dart'; // ! when using CUBIT
 
 class ShowTodos extends StatelessWidget {
