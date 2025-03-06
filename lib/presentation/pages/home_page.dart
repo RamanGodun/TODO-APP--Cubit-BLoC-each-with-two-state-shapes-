@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'create_todo.dart';
-import '../../features/todo_search/presentation/search_and_filter_todo.dart';
+import 'search_and_filter_todo.dart';
 import 'show_todos.dart';
-import '../../features/header/presentation/todo_header.dart';
+import 'todo_header.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

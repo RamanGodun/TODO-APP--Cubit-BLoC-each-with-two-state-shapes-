@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'features/header/on_block/with_stream_subscription_state_shape/active_todo_count_bloc.dart';
-import 'features/todos_list_filtered/on_bloc/with_stream_subscription_state_shape/filtered_todos_bloc.dart';
-import 'features/todo_filter/on_bloc/todo_filter_bloc.dart';
-import 'features/todos_list/on_block/todo_list_bloc.dart';
-import 'features/todo_search/on_block/todo_search_bloc.dart';
 import 'core/config/app_theme.dart';
+import 'core/utils/bloc_exports.dart';
 import 'core/utils/cubits_export.dart';
 import 'presentation/pages/home_page.dart';
 

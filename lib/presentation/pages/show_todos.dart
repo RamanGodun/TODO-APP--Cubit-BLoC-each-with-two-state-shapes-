@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/models/todo_model.dart';
-import '../../features/todos_list/on_block/todo_list_bloc.dart';
-import '../../features/todos_list_filtered/on_bloc/with_stream_subscription_state_shape/filtered_todos_bloc.dart';
+import '../../core/utils/bloc_exports.dart';
 
 class ShowTodos extends StatelessWidget {
   const ShowTodos({super.key});
