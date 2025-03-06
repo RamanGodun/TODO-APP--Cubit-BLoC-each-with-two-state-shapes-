@@ -1,12 +1,14 @@
 part of 'active_todo_count_bloc.dart';
 
-final class ActiveTodoCountState extends Equatable {
-  const ActiveTodoCountState({
+final class ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape
+    extends Equatable {
+  const ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape({
     required this.activeTodoCount,
   });
 
-  factory ActiveTodoCountState.initial() {
-    return const ActiveTodoCountState(activeTodoCount: 0);
+  factory ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape.initial() {
+    return const ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape(
+        activeTodoCount: 0);
   }
 
   final int activeTodoCount;
@@ -18,10 +20,10 @@ final class ActiveTodoCountState extends Equatable {
   String toString() =>
       'ActiveTodoCountState(activeTodoCount: $activeTodoCount)';
 
-  ActiveTodoCountState copyWith({
+  ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape copyWith({
     int? activeTodoCount,
   }) {
-    return ActiveTodoCountState(
+    return ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape(
       activeTodoCount: activeTodoCount ?? this.activeTodoCount,
     );
   }

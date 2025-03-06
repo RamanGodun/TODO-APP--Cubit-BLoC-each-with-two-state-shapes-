@@ -5,22 +5,22 @@ import '../../../core/models/todo_model.dart';
 part 'todo_list_event.dart';
 part 'todo_list_state.dart';
 
-class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
-  TodoListBloc() : super(TodoListState.initial()) {
+class TodoListBloc extends Bloc<TodoListEventOnBloc, TodoListStateOnBloc> {
+  TodoListBloc() : super(TodoListStateOnBloc.initial()) {
     on<AddTodoEvent>(_addTodo);
     on<EditTodoEvent>(_editTodo);
     on<ToggleTodoEvent>(_toggleTodo);
     on<RemoveTodoEvent>(_removeTodo);
   }
 
-  void _addTodo(AddTodoEvent event, Emitter<TodoListState> emit) {
+  void _addTodo(AddTodoEvent event, Emitter<TodoListStateOnBloc> emit) {
     final newTodo = Todo(desc: event.todoDesc);
     final newTodos = [...state.todos, newTodo];
 
     emit(state.copyWith(todos: newTodos));
   }
 
-  void _editTodo(EditTodoEvent event, Emitter<TodoListState> emit) {
+  void _editTodo(EditTodoEvent event, Emitter<TodoListStateOnBloc> emit) {
     final newTodos = state.todos.map((Todo todo) {
       if (todo.id == event.id) {
         return Todo(
@@ -35,7 +35,7 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
     emit(state.copyWith(todos: newTodos));
   }
 
-  void _toggleTodo(ToggleTodoEvent event, Emitter<TodoListState> emit) {
+  void _toggleTodo(ToggleTodoEvent event, Emitter<TodoListStateOnBloc> emit) {
     final newTodos = state.todos.map((Todo todo) {
       if (todo.id == event.id) {
         return Todo(
@@ -50,7 +50,7 @@ class TodoListBloc extends Bloc<TodoListEvent, TodoListState> {
     emit(state.copyWith(todos: newTodos));
   }
 
-  void _removeTodo(RemoveTodoEvent event, Emitter<TodoListState> emit) {
+  void _removeTodo(RemoveTodoEvent event, Emitter<TodoListStateOnBloc> emit) {
     final newTodos =
         state.todos.where((Todo t) => t.id != event.todo.id).toList();
 

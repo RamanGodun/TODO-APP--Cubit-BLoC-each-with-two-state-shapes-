@@ -5,12 +5,12 @@ import '../../../../core/models/todo_model.dart';
 part 'filtered_todos_state.dart';
 
 class FilteredTodosCubitWithListenerStateShape
-    extends Cubit<FilteredTodosStateWithListenerStateShape> {
+    extends Cubit<FilteredTodosStateOnCubitWithListenerStateShape> {
   final List<Todo> initialTodos;
 
   FilteredTodosCubitWithListenerStateShape({
     required this.initialTodos,
-  }) : super(FilteredTodosStateWithListenerStateShape(
+  }) : super(FilteredTodosStateOnCubitWithListenerStateShape(
             filteredTodos: initialTodos));
 
   void setFilteredTodos(Filter filter, List<Todo> todos, String searchTerm) {

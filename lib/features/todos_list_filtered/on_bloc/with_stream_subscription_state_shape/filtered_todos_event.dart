@@ -1,13 +1,15 @@
 part of 'filtered_todos_bloc.dart';
 
-sealed class FilteredTodosEvent extends Equatable {
-  const FilteredTodosEvent();
+sealed class FilteredTodosEventWithStreamSubscriptionStateShape
+    extends Equatable {
+  const FilteredTodosEventWithStreamSubscriptionStateShape();
 
   @override
   List<Object> get props => [];
 }
 
-class CalculateFilteredTodosEvent extends FilteredTodosEvent {
+class CalculateFilteredTodosEvent
+    extends FilteredTodosEventWithStreamSubscriptionStateShape {
   const CalculateFilteredTodosEvent({
     required this.filteredTodos,
   });

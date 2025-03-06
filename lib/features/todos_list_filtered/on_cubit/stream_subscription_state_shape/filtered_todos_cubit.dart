@@ -13,7 +13,7 @@ import '../../../todo_search/on_cubit/todo_search_cubit.dart';
 part 'filtered_todos_state.dart';
 
 class FilteredTodosCubitWithStreamSubscriptionStateShape
-    extends Cubit<FilteredTodosStateWithStreamSubscriptionStateShape> {
+    extends Cubit<FilteredTodosStateOnCubitWithStreamSubscriptionStateShape> {
   late StreamSubscription todoFilterSubscription;
   late StreamSubscription todoSearchSubscription;
   late StreamSubscription todoListSubscription;
@@ -29,20 +29,20 @@ class FilteredTodosCubitWithStreamSubscriptionStateShape
     required this.todoFilterCubit,
     required this.todoSearchCubit,
     required this.todoListCubit,
-  }) : super(FilteredTodosStateWithStreamSubscriptionStateShape(
+  }) : super(FilteredTodosStateOnCubitWithStreamSubscriptionStateShape(
             filteredTodos: initialTodos)) {
     todoFilterSubscription =
-        todoFilterCubit.stream.listen((TodoFilterState todoFilterState) {
+        todoFilterCubit.stream.listen((TodoFilterStateOnCubit todoFilterState) {
       setFilteredTodos();
     });
 
     todoSearchSubscription =
-        todoSearchCubit.stream.listen((TodoSearchState todoSearchState) {
+        todoSearchCubit.stream.listen((TodoSearchStateOnCubit todoSearchState) {
       setFilteredTodos();
     });
 
     todoListSubscription =
-        todoListCubit.stream.listen((TodoListState todoListState) {
+        todoListCubit.stream.listen((TodoListStateOnCubit todoListState) {
       setFilteredTodos();
     });
   }

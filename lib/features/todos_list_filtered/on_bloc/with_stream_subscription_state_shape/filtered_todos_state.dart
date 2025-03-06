@@ -1,12 +1,14 @@
 part of 'filtered_todos_bloc.dart';
 
-final class FilteredTodosState extends Equatable {
-  const FilteredTodosState({
+final class FilteredTodosStateOnBlocWithStreamSubscriptionStateShape
+    extends Equatable {
+  const FilteredTodosStateOnBlocWithStreamSubscriptionStateShape({
     required this.filteredTodos,
   });
 
-  factory FilteredTodosState.initial() {
-    return const FilteredTodosState(filteredTodos: []);
+  factory FilteredTodosStateOnBlocWithStreamSubscriptionStateShape.initial() {
+    return const FilteredTodosStateOnBlocWithStreamSubscriptionStateShape(
+        filteredTodos: []);
   }
 
   final List<Todo> filteredTodos;
@@ -17,10 +19,10 @@ final class FilteredTodosState extends Equatable {
   @override
   String toString() => 'FilteredTodosState(filteredTodos: $filteredTodos)';
 
-  FilteredTodosState copyWith({
+  FilteredTodosStateOnBlocWithStreamSubscriptionStateShape copyWith({
     List<Todo>? filteredTodos,
   }) {
-    return FilteredTodosState(
+    return FilteredTodosStateOnBlocWithStreamSubscriptionStateShape(
       filteredTodos: filteredTodos ?? this.filteredTodos,
     );
   }

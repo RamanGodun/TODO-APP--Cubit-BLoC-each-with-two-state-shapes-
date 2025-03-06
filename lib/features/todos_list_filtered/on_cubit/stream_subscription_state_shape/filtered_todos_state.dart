@@ -1,13 +1,13 @@
 part of 'filtered_todos_cubit.dart';
 
-final class FilteredTodosStateWithStreamSubscriptionStateShape
+final class FilteredTodosStateOnCubitWithStreamSubscriptionStateShape
     extends Equatable {
-  const FilteredTodosStateWithStreamSubscriptionStateShape({
+  const FilteredTodosStateOnCubitWithStreamSubscriptionStateShape({
     required this.filteredTodos,
   });
 
-  factory FilteredTodosStateWithStreamSubscriptionStateShape.initial() {
-    return const FilteredTodosStateWithStreamSubscriptionStateShape(
+  factory FilteredTodosStateOnCubitWithStreamSubscriptionStateShape.initial() {
+    return const FilteredTodosStateOnCubitWithStreamSubscriptionStateShape(
         filteredTodos: []);
   }
 
@@ -19,10 +19,10 @@ final class FilteredTodosStateWithStreamSubscriptionStateShape
   @override
   String toString() => 'FilteredTodosState(filteredTodos: $filteredTodos)';
 
-  FilteredTodosStateWithStreamSubscriptionStateShape copyWith({
+  FilteredTodosStateOnCubitWithStreamSubscriptionStateShape copyWith({
     List<Todo>? filteredTodos,
   }) {
-    return FilteredTodosStateWithStreamSubscriptionStateShape(
+    return FilteredTodosStateOnCubitWithStreamSubscriptionStateShape(
       filteredTodos: filteredTodos ?? this.filteredTodos,
     );
   }

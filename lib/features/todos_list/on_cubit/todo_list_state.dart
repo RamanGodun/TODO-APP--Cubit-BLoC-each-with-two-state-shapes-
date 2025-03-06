@@ -1,12 +1,12 @@
 part of 'todo_list_cubit.dart';
 
-final class TodoListState extends Equatable {
-  const TodoListState({
+final class TodoListStateOnCubit extends Equatable {
+  const TodoListStateOnCubit({
     required this.todos,
   });
 
-  factory TodoListState.initial() {
-    return TodoListState(todos: [
+  factory TodoListStateOnCubit.initial() {
+    return TodoListStateOnCubit(todos: [
       Todo(id: '1', desc: 'Clean the room'),
       Todo(id: '2', desc: 'Wash the dish'),
       Todo(id: '3', desc: 'Do homework'),
@@ -21,10 +21,10 @@ final class TodoListState extends Equatable {
   @override
   String toString() => 'TodoListState(todos: $todos)';
 
-  TodoListState copyWith({
+  TodoListStateOnCubit copyWith({
     List<Todo>? todos,
   }) {
-    return TodoListState(
+    return TodoListStateOnCubit(
       todos: todos ?? this.todos,
     );
   }

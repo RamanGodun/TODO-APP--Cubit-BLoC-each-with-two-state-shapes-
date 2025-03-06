@@ -1,12 +1,12 @@
 part of 'todo_search_bloc.dart';
 
-final class TodoSearchState extends Equatable {
-  const TodoSearchState({
+final class TodoSearchStateOnBloc extends Equatable {
+  const TodoSearchStateOnBloc({
     required this.searchTerm,
   });
 
-  factory TodoSearchState.initial() {
-    return const TodoSearchState(searchTerm: '');
+  factory TodoSearchStateOnBloc.initial() {
+    return const TodoSearchStateOnBloc(searchTerm: '');
   }
 
   final String searchTerm;
@@ -17,10 +17,10 @@ final class TodoSearchState extends Equatable {
   @override
   String toString() => 'TodoSearchState(searchTerm: $searchTerm)';
 
-  TodoSearchState copyWith({
+  TodoSearchStateOnBloc copyWith({
     String? searchTerm,
   }) {
-    return TodoSearchState(
+    return TodoSearchStateOnBloc(
       searchTerm: searchTerm ?? this.searchTerm,
     );
   }

@@ -1,12 +1,12 @@
 part of 'todo_list_bloc.dart';
 
-final class TodoListState extends Equatable {
-  const TodoListState({
+final class TodoListStateOnBloc extends Equatable {
+  const TodoListStateOnBloc({
     required this.todos,
   });
 
-  factory TodoListState.initial() {
-    return TodoListState(todos: [
+  factory TodoListStateOnBloc.initial() {
+    return TodoListStateOnBloc(todos: [
       Todo(id: '1', desc: 'Clean the room'),
       Todo(id: '2', desc: 'Wash the dish'),
       Todo(id: '3', desc: 'Do homework'),
@@ -21,10 +21,10 @@ final class TodoListState extends Equatable {
   @override
   String toString() => 'TodoListState(todos: $todos)';
 
-  TodoListState copyWith({
+  TodoListStateOnBloc copyWith({
     List<Todo>? todos,
   }) {
-    return TodoListState(
+    return TodoListStateOnBloc(
       todos: todos ?? this.todos,
     );
   }

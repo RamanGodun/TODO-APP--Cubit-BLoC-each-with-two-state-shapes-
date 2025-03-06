@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/config/app_theme.dart';
 import 'core/utils/bloc_exports.dart';
 import 'core/utils/cubits_export.dart';
+
 import 'presentation/pages/home_page.dart';
 
 void main() {
@@ -66,19 +67,32 @@ class MyApp extends StatelessWidget {
         BlocProvider<TodoListBloc>(
           create: (context) => TodoListBloc(),
         ),
-        BlocProvider<ActiveTodoCountBloc>(
-          create: (context) => ActiveTodoCountBloc(
+        BlocProvider<ActiveTodoCountBlocWithStreamSubscriptionStateShape>(
+          create: (context) =>
+              ActiveTodoCountBlocWithStreamSubscriptionStateShape(
             initialActiveTodoCount:
                 context.read<TodoListBloc>().state.todos.length,
             todoListBloc: BlocProvider.of<TodoListBloc>(context),
           ),
         ),
-        BlocProvider<FilteredTodosBloc>(
-          create: (context) => FilteredTodosBloc(
+        BlocProvider<FilteredTodosBlocWithStreamSubscriptionStateShape>(
+          create: (context) =>
+              FilteredTodosBlocWithStreamSubscriptionStateShape(
             initialTodos: context.read<TodoListBloc>().state.todos,
             todoFilterBloc: BlocProvider.of<TodoFilterBloc>(context),
             todoSearchBloc: BlocProvider.of<TodoSearchBloc>(context),
             todoListBloc: BlocProvider.of<TodoListBloc>(context),
+          ),
+        ),
+        BlocProvider<ActiveTodoCountBlocWithListenerStateShape>(
+          create: (context) => ActiveTodoCountBlocWithListenerStateShape(
+            initialActiveTodoCount:
+                context.read<TodoListBloc>().state.todos.length,
+          ),
+        ),
+        BlocProvider<FilteredTodosBlocWithListenerStateShape>(
+          create: (context) => FilteredTodosBlocWithListenerStateShape(
+            initialTodos: context.read<TodoListBloc>().state.todos,
           ),
         ),
       ],

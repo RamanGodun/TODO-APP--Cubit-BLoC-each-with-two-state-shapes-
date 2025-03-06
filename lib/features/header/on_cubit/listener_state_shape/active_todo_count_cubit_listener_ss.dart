@@ -4,12 +4,12 @@ import 'package:equatable/equatable.dart';
 part 'active_todo_count_state_listener_ss.dart';
 
 class ActiveTodoCountCubitWithUsingListenerStateShape
-    extends Cubit<ActiveTodoCountStateWithUsingListenerStateShape> {
+    extends Cubit<ActiveTodoCountStateOnCubitWithUsingListenerStateShape> {
   final int initialActiveTodoCount;
 
   ActiveTodoCountCubitWithUsingListenerStateShape({
     required this.initialActiveTodoCount,
-  }) : super(ActiveTodoCountStateWithUsingListenerStateShape(
+  }) : super(ActiveTodoCountStateOnCubitWithUsingListenerStateShape(
             activeTodoCount: initialActiveTodoCount));
 
   void calculateActiveTodoCount(int activeTodoCount) {

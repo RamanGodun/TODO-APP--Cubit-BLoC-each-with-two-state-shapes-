@@ -1,12 +1,12 @@
 part of 'todo_filter_cubit.dart';
 
-final class TodoFilterState extends Equatable {
-  const TodoFilterState({
+final class TodoFilterStateOnCubit extends Equatable {
+  const TodoFilterStateOnCubit({
     required this.filter,
   });
 
-  factory TodoFilterState.initial() {
-    return const TodoFilterState(filter: Filter.all);
+  factory TodoFilterStateOnCubit.initial() {
+    return const TodoFilterStateOnCubit(filter: Filter.all);
   }
 
   final Filter filter;
@@ -17,10 +17,10 @@ final class TodoFilterState extends Equatable {
   @override
   String toString() => 'TodoFilterState(filter: $filter)';
 
-  TodoFilterState copyWith({
+  TodoFilterStateOnCubit copyWith({
     Filter? filter,
   }) {
-    return TodoFilterState(
+    return TodoFilterStateOnCubit(
       filter: filter ?? this.filter,
     );
   }

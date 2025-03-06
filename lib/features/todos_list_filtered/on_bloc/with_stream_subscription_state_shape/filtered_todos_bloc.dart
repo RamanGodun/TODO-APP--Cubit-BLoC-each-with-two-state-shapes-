@@ -11,7 +11,9 @@ import '../../../todos_list/on_block/todo_list_bloc.dart';
 part 'filtered_todos_event.dart';
 part 'filtered_todos_state.dart';
 
-class FilteredTodosBloc extends Bloc<FilteredTodosEvent, FilteredTodosState> {
+class FilteredTodosBlocWithStreamSubscriptionStateShape extends Bloc<
+    FilteredTodosEventWithStreamSubscriptionStateShape,
+    FilteredTodosStateOnBlocWithStreamSubscriptionStateShape> {
   late StreamSubscription todoFilterSubscription;
   late StreamSubscription todoSearchSubscription;
   late StreamSubscription todoListSubscription;
@@ -22,24 +24,25 @@ class FilteredTodosBloc extends Bloc<FilteredTodosEvent, FilteredTodosState> {
   final TodoSearchBloc todoSearchBloc;
   final TodoListBloc todoListBloc;
 
-  FilteredTodosBloc({
+  FilteredTodosBlocWithStreamSubscriptionStateShape({
     required this.initialTodos,
     required this.todoFilterBloc,
     required this.todoSearchBloc,
     required this.todoListBloc,
-  }) : super(FilteredTodosState(filteredTodos: initialTodos)) {
+  }) : super(FilteredTodosStateOnBlocWithStreamSubscriptionStateShape(
+            filteredTodos: initialTodos)) {
     todoFilterSubscription =
-        todoFilterBloc.stream.listen((TodoFilterState todoFilterState) {
+        todoFilterBloc.stream.listen((TodoFilterStateOnBloc todoFilterState) {
       setFilteredTodos();
     });
 
     todoSearchSubscription =
-        todoSearchBloc.stream.listen((TodoSearchState todoSearchState) {
+        todoSearchBloc.stream.listen((TodoSearchStateOnBloc todoSearchState) {
       setFilteredTodos();
     });
 
     todoListSubscription =
-        todoListBloc.stream.listen((TodoListState todoListState) {
+        todoListBloc.stream.listen((TodoListStateOnBloc todoListState) {
       setFilteredTodos();
     });
 

@@ -7,19 +7,21 @@ import '../../../todos_list/on_block/todo_list_bloc.dart';
 part 'active_todo_count_event.dart';
 part 'active_todo_count_state.dart';
 
-class ActiveTodoCountBloc
-    extends Bloc<ActiveTodoCountEvent, ActiveTodoCountState> {
+class ActiveTodoCountBlocWithStreamSubscriptionStateShape extends Bloc<
+    ActiveTodoCountEventWithStreamSubscriptionStateShape,
+    ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape> {
   late final StreamSubscription todoListSubscription;
 
   final int initialActiveTodoCount;
   final TodoListBloc todoListBloc;
 
-  ActiveTodoCountBloc({
+  ActiveTodoCountBlocWithStreamSubscriptionStateShape({
     required this.initialActiveTodoCount,
     required this.todoListBloc,
-  }) : super(ActiveTodoCountState(activeTodoCount: initialActiveTodoCount)) {
+  }) : super(ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape(
+            activeTodoCount: initialActiveTodoCount)) {
     todoListSubscription =
-        todoListBloc.stream.listen((TodoListState todoListState) {
+        todoListBloc.stream.listen((TodoListStateOnBloc todoListState) {
       print('todoListState: $todoListState');
 
       final int currentActiveTodoCount = todoListState.todos

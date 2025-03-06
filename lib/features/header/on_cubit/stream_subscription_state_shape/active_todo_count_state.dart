@@ -1,13 +1,13 @@
 part of 'active_todo_count_cubit.dart';
 
-final class ActiveTodoCountStateWithUsingStreamSubscriptionStateShape
+final class ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape
     extends Equatable {
-  const ActiveTodoCountStateWithUsingStreamSubscriptionStateShape({
+  const ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape({
     required this.activeTodoCount,
   });
 
-  factory ActiveTodoCountStateWithUsingStreamSubscriptionStateShape.initial() {
-    return const ActiveTodoCountStateWithUsingStreamSubscriptionStateShape(
+  factory ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape.initial() {
+    return const ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape(
         activeTodoCount: 0);
   }
 
@@ -20,10 +20,10 @@ final class ActiveTodoCountStateWithUsingStreamSubscriptionStateShape
   String toString() =>
       'ActiveTodoCountState(activeTodoCount: $activeTodoCount)';
 
-  ActiveTodoCountStateWithUsingStreamSubscriptionStateShape copyWith({
+  ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape copyWith({
     int? activeTodoCount,
   }) {
-    return ActiveTodoCountStateWithUsingStreamSubscriptionStateShape(
+    return ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape(
       activeTodoCount: activeTodoCount ?? this.activeTodoCount,
     );
   }

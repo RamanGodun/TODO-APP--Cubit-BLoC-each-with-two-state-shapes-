@@ -1,12 +1,12 @@
 part of 'todo_search_cubit.dart';
 
-final class TodoSearchState extends Equatable {
-  const TodoSearchState({
+final class TodoSearchStateOnCubit extends Equatable {
+  const TodoSearchStateOnCubit({
     required this.searchTerm,
   });
 
-  factory TodoSearchState.initial() {
-    return const TodoSearchState(searchTerm: '');
+  factory TodoSearchStateOnCubit.initial() {
+    return const TodoSearchStateOnCubit(searchTerm: '');
   }
 
   final String searchTerm;
@@ -17,10 +17,10 @@ final class TodoSearchState extends Equatable {
   @override
   String toString() => 'TodoSearchState(searchTerm: $searchTerm)';
 
-  TodoSearchState copyWith({
+  TodoSearchStateOnCubit copyWith({
     String? searchTerm,
   }) {
-    return TodoSearchState(
+    return TodoSearchStateOnCubit(
       searchTerm: searchTerm ?? this.searchTerm,
     );
   }

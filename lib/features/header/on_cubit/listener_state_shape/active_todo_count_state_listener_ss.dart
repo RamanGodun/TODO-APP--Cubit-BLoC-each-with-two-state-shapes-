@@ -1,12 +1,13 @@
 part of 'active_todo_count_cubit_listener_ss.dart';
 
-final class ActiveTodoCountStateWithUsingListenerStateShape extends Equatable {
-  const ActiveTodoCountStateWithUsingListenerStateShape({
+final class ActiveTodoCountStateOnCubitWithUsingListenerStateShape
+    extends Equatable {
+  const ActiveTodoCountStateOnCubitWithUsingListenerStateShape({
     required this.activeTodoCount,
   });
 
-  factory ActiveTodoCountStateWithUsingListenerStateShape.initial() {
-    return const ActiveTodoCountStateWithUsingListenerStateShape(
+  factory ActiveTodoCountStateOnCubitWithUsingListenerStateShape.initial() {
+    return const ActiveTodoCountStateOnCubitWithUsingListenerStateShape(
         activeTodoCount: 0);
   }
 
@@ -19,10 +20,10 @@ final class ActiveTodoCountStateWithUsingListenerStateShape extends Equatable {
   String toString() =>
       'ActiveTodoCountState(activeTodoCount: $activeTodoCount)';
 
-  ActiveTodoCountStateWithUsingListenerStateShape copyWith({
+  ActiveTodoCountStateOnCubitWithUsingListenerStateShape copyWith({
     int? activeTodoCount,
   }) {
-    return ActiveTodoCountStateWithUsingListenerStateShape(
+    return ActiveTodoCountStateOnCubitWithUsingListenerStateShape(
       activeTodoCount: activeTodoCount ?? this.activeTodoCount,
     );
   }

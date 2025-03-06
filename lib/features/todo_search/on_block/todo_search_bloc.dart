@@ -5,11 +5,11 @@ import 'package:rxdart/rxdart.dart';
 part 'todo_search_event.dart';
 part 'todo_search_state.dart';
 
-class TodoSearchBloc extends Bloc<TodoSearchEvent, TodoSearchState> {
-  TodoSearchBloc() : super(TodoSearchState.initial()) {
+class TodoSearchBloc extends Bloc<TodoSearchEvent, TodoSearchStateOnBloc> {
+  TodoSearchBloc() : super(TodoSearchStateOnBloc.initial()) {
     on<SetSearchTermEvent>((event, emit) {
       emit(state.copyWith(searchTerm: event.newSearchTerm));
-    }, transformer: debounce(const Duration(milliseconds: 2000)));
+    }, transformer: debounce(const Duration(milliseconds: 500)));
   }
 
   EventTransformer<SetSearchTermEvent> debounce<SetSearchTermEvent>(

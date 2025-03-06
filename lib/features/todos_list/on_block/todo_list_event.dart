@@ -1,13 +1,13 @@
 part of 'todo_list_bloc.dart';
 
-sealed class TodoListEvent extends Equatable {
-  const TodoListEvent();
+sealed class TodoListEventOnBloc extends Equatable {
+  const TodoListEventOnBloc();
 
   @override
   List<Object> get props => [];
 }
 
-final class AddTodoEvent extends TodoListEvent {
+final class AddTodoEvent extends TodoListEventOnBloc {
   const AddTodoEvent({
     required this.todoDesc,
   });
@@ -21,7 +21,7 @@ final class AddTodoEvent extends TodoListEvent {
   List<Object> get props => [todoDesc];
 }
 
-final class EditTodoEvent extends TodoListEvent {
+final class EditTodoEvent extends TodoListEventOnBloc {
   const EditTodoEvent({
     required this.id,
     required this.todoDesc,
@@ -37,7 +37,7 @@ final class EditTodoEvent extends TodoListEvent {
   List<Object> get props => [id, todoDesc];
 }
 
-final class ToggleTodoEvent extends TodoListEvent {
+final class ToggleTodoEvent extends TodoListEventOnBloc {
   const ToggleTodoEvent({
     required this.id,
   });
@@ -51,7 +51,7 @@ final class ToggleTodoEvent extends TodoListEvent {
   List<Object> get props => [id];
 }
 
-final class RemoveTodoEvent extends TodoListEvent {
+final class RemoveTodoEvent extends TodoListEventOnBloc {
   const RemoveTodoEvent({
     required this.todo,
   });

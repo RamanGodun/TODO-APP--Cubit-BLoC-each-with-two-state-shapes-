@@ -1,13 +1,15 @@
 part of 'active_todo_count_bloc.dart';
 
-sealed class ActiveTodoCountEvent extends Equatable {
-  const ActiveTodoCountEvent();
+sealed class ActiveTodoCountEventWithStreamSubscriptionStateShape
+    extends Equatable {
+  const ActiveTodoCountEventWithStreamSubscriptionStateShape();
 
   @override
   List<Object> get props => [];
 }
 
-final class CalculateActiveTodoCountEvent extends ActiveTodoCountEvent {
+final class CalculateActiveTodoCountEvent
+    extends ActiveTodoCountEventWithStreamSubscriptionStateShape {
   const CalculateActiveTodoCountEvent({
     required this.activeTodoCount,
   });

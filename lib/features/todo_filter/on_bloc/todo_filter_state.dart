@@ -1,12 +1,12 @@
 part of 'todo_filter_bloc.dart';
 
-final class TodoFilterState extends Equatable {
-  const TodoFilterState({
+final class TodoFilterStateOnBloc extends Equatable {
+  const TodoFilterStateOnBloc({
     required this.filter,
   });
 
-  factory TodoFilterState.initial() {
-    return const TodoFilterState(filter: Filter.all);
+  factory TodoFilterStateOnBloc.initial() {
+    return const TodoFilterStateOnBloc(filter: Filter.all);
   }
 
   final Filter filter;
@@ -17,10 +17,10 @@ final class TodoFilterState extends Equatable {
   @override
   String toString() => 'TodoFilterState(filter: $filter)';
 
-  TodoFilterState copyWith({
+  TodoFilterStateOnBloc copyWith({
     Filter? filter,
   }) {
-    return TodoFilterState(
+    return TodoFilterStateOnBloc(
       filter: filter ?? this.filter,
     );
   }
