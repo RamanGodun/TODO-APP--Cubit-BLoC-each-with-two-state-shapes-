@@ -24,7 +24,7 @@ class AppSettingsState extends Equatable {
     return const AppSettingsState(
       isUsingBlocForAppFeatures: true,
       isDarkThemeForBloc: false,
-      isDarkThemeForCubit: false,
+      isDarkThemeForCubit: true,
     );
   }
 

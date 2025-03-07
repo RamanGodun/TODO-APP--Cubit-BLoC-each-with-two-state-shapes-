@@ -1,3 +1,4 @@
+import 'package:cubit_bloc_playground_todo_app/presentation/todo_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +9,7 @@ import '../core/utils/helpers.dart';
 import 'create_todo.dart';
 import 'search_and_filter_todo.dart';
 import 'show_todos.dart';
-import 'todo_header.dart';
+
 import 'widgets/text_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,6 +27,13 @@ class HomePage extends StatelessWidget {
           : cubit.state.isDarkThemeForCubit,
     );
 
+    final themeIcon =
+        isDarkMode ? AppConstants.darkModeIcon : AppConstants.lightModeIcon;
+    final iconColor = Helpers.getColorScheme(context).primary;
+    final stateChangeIcon = isUsingBlocForAppFeatures
+        ? AppConstants.syncIcon
+        : AppConstants.changeCircleIcon;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -39,23 +47,12 @@ class HomePage extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: Icon(
-                isDarkMode
-                    ? AppConstants.darkModeIcon
-                    : AppConstants.lightModeIcon,
-                color: Helpers.getColorScheme(context).primary,
-              ),
-              onPressed: () => _toggleTheme(context, isDarkMode),
-            ),
+                icon: Icon(themeIcon, color: iconColor),
+                onPressed: () => _toggleTheme(context, isDarkMode)),
             IconButton(
-              icon: Icon(
-                isUsingBlocForAppFeatures
-                    ? AppConstants.syncIcon
-                    : AppConstants.changeCircleIcon,
-                color: Helpers.getColorScheme(context).primary,
-              ),
-              onPressed: () => context.read<AppSettingsCubit>().toggleUseBloc(),
-            ),
+                icon: Icon(stateChangeIcon, color: iconColor),
+                onPressed: () =>
+                    context.read<AppSettingsCubit>().toggleUseBloc()),
           ],
         ),
         body: Padding(
@@ -74,11 +71,10 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  ///
+  /// USED methods
+
   /// 🕹️ Toggles the theme between light and dark.
   void _toggleTheme(BuildContext context, bool isDarkMode) {
     context.read<AppSettingsCubit>().toggleTheme(!isDarkMode);
-
-    print('Theme toggled to ${!isDarkMode ? 'Dark' : 'Light'} mode');
   }
 }
