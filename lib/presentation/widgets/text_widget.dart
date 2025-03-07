@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/helpers.dart';
-import '../../../core/config/app_constants.dart';
+import '../../core/app_constants/app_constants.dart';
 
 /// 📄 [TextWidget] is a customizable widget for displaying styled text with pre-defined text types.
 class TextWidget extends StatelessWidget {
@@ -27,7 +26,7 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Helpers.getTextTheme(context);
+    final textTheme = Theme.of(context).textTheme;
 
     /// 🧠 [buildText] constructs the [Text] widget with applied styles.
     Text buildText(TextStyle? baseStyle) {
@@ -37,7 +36,7 @@ class TextWidget extends StatelessWidget {
         maxLines: maxLines,
         overflow: overflow,
         style: baseStyle?.copyWith(
-          color: color ?? Helpers.getColorScheme(context).onSurface,
+          color: color ?? Theme.of(context).colorScheme.onSurface,
           fontWeight: fontWeight ?? baseStyle.fontWeight,
           fontSize: fontSize ?? baseStyle.fontSize,
         ),
@@ -57,11 +56,7 @@ class TextWidget extends StatelessWidget {
       case TextType.body:
         return buildText(textTheme.bodyMedium);
       case TextType.button:
-        return buildText(
-          textTheme.displaySmall?.copyWith(
-            color: Helpers.getColorScheme(context).secondary,
-          ),
-        );
+        return buildText(textTheme.bodyLarge);
       case TextType.error:
         return buildText(
           textTheme.bodyLarge?.copyWith(color: AppConstants.errorColor),

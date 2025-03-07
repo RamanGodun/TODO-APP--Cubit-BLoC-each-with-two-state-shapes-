@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'text_styles.dart';
-import 'app_constants.dart';
+import '../app_constants/app_constants.dart';
 
 /// 🎨 `AppThemes` визначає теми додатку
 abstract class AppThemes {

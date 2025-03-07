@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../presentation/widgets/text_widget.dart';
-import '../config/app_constants.dart';
-import '../config/app_strings.dart';
+import '../app_constants/app_constants.dart';
+import '../app_constants/app_strings.dart';
 import 'helpers.dart';
 
 /// 💬 [DialogService] provides a simple way to show alert dialogs in the app.

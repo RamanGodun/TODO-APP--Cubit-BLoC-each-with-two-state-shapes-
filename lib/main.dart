@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'core/config/app_bloc_observer.dart';
-import 'core/config/app_theme.dart';
+import 'core/config/observer/app_bloc_observer.dart';
+import 'core/theming/app_theme.dart';
 import 'core/utils/bloc_exports.dart';
 import 'core/utils/cubits_export.dart';
 
@@ -10,100 +10,96 @@ import 'presentation/home_page.dart';
 
 void main() {
   Bloc.observer = AppBlocObserver();
-  runApp(const MyApp());
+  runApp(const StateManagementProvider());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class StateManagementProvider extends StatelessWidget {
+  const StateManagementProvider({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-/* Cubits */
+        /// 🟧 Cubit Providers
+        BlocProvider<TodoListCubit>(create: (context) => TodoListCubit()),
         BlocProvider<TodoFilterCubit>(
-          create: (context) => TodoFilterCubit(),
-        ),
+            create: (context) => TodoFilterCubit(), lazy: true),
         BlocProvider<TodoSearchCubit>(
-          create: (context) => TodoSearchCubit(),
-        ),
-        BlocProvider<TodoListCubit>(
-          create: (context) => TodoListCubit(),
-        ),
+            create: (context) => TodoSearchCubit(), lazy: true),
         BlocProvider<ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape>(
-          create: (context) =>
-              ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape(
-            initialActiveTodoCount:
-                context.read<TodoListCubit>().state.todos.length,
-            todoListCubit: BlocProvider.of<TodoListCubit>(context),
-          ),
-        ),
+            create: (context) =>
+                ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape(
+                    initialActiveTodoCount:
+                        context.read<TodoListCubit>().state.todos.length,
+                    todoListCubit: BlocProvider.of<TodoListCubit>(context)),
+            lazy: true),
         BlocProvider<ActiveTodoCountCubitWithUsingListenerStateShape>(
-          create: (context) => ActiveTodoCountCubitWithUsingListenerStateShape(
-            initialActiveTodoCount:
-                context.read<TodoListCubit>().state.todos.length,
-          ),
-        ),
+            create: (context) =>
+                ActiveTodoCountCubitWithUsingListenerStateShape(
+                    initialActiveTodoCount:
+                        context.read<TodoListCubit>().state.todos.length),
+            lazy: true),
         BlocProvider<FilteredTodosCubitWithStreamSubscriptionStateShape>(
-          create: (context) =>
-              FilteredTodosCubitWithStreamSubscriptionStateShape(
-            initialTodos: context.read<TodoListCubit>().state.todos,
-            todoFilterCubit: BlocProvider.of<TodoFilterCubit>(context),
-            todoSearchCubit: BlocProvider.of<TodoSearchCubit>(context),
-            todoListCubit: BlocProvider.of<TodoListCubit>(context),
-          ),
-        ),
+            create: (context) =>
+                FilteredTodosCubitWithStreamSubscriptionStateShape(
+                    initialTodos: context.read<TodoListCubit>().state.todos,
+                    todoFilterCubit: BlocProvider.of<TodoFilterCubit>(context),
+                    todoSearchCubit: BlocProvider.of<TodoSearchCubit>(context),
+                    todoListCubit: BlocProvider.of<TodoListCubit>(context)),
+            lazy: true),
         BlocProvider<FilteredTodosCubitWithListenerStateShape>(
-          create: (context) => FilteredTodosCubitWithListenerStateShape(
-            initialTodos: context.read<TodoListCubit>().state.todos,
-          ),
-        ),
+            create: (context) => FilteredTodosCubitWithListenerStateShape(
+                initialTodos: context.read<TodoListCubit>().state.todos),
+            lazy: true),
 
-/* BLoCs */
+        /// 🟦 BLoC Providers
+        BlocProvider<TodoListBloc>(create: (context) => TodoListBloc()),
         BlocProvider<TodoFilterBloc>(
-          create: (context) => TodoFilterBloc(),
-        ),
+            create: (context) => TodoFilterBloc(), lazy: true),
         BlocProvider<TodoSearchBloc>(
-          create: (context) => TodoSearchBloc(),
-        ),
-        BlocProvider<TodoListBloc>(
-          create: (context) => TodoListBloc(),
-        ),
+            create: (context) => TodoSearchBloc(), lazy: true),
         BlocProvider<ActiveTodoCountBlocWithStreamSubscriptionStateShape>(
-          create: (context) =>
-              ActiveTodoCountBlocWithStreamSubscriptionStateShape(
-            initialActiveTodoCount:
-                context.read<TodoListBloc>().state.todos.length,
-            todoListBloc: BlocProvider.of<TodoListBloc>(context),
-          ),
-        ),
+            create: (context) =>
+                ActiveTodoCountBlocWithStreamSubscriptionStateShape(
+                    initialActiveTodoCount:
+                        context.read<TodoListBloc>().state.todos.length,
+                    todoListBloc: BlocProvider.of<TodoListBloc>(context)),
+            lazy: true),
         BlocProvider<FilteredTodosBlocWithStreamSubscriptionStateShape>(
-          create: (context) =>
-              FilteredTodosBlocWithStreamSubscriptionStateShape(
-            initialTodos: context.read<TodoListBloc>().state.todos,
-            todoFilterBloc: BlocProvider.of<TodoFilterBloc>(context),
-            todoSearchBloc: BlocProvider.of<TodoSearchBloc>(context),
-            todoListBloc: BlocProvider.of<TodoListBloc>(context),
-          ),
-        ),
+            create: (context) =>
+                FilteredTodosBlocWithStreamSubscriptionStateShape(
+                    initialTodos: context.read<TodoListBloc>().state.todos,
+                    todoFilterBloc: BlocProvider.of<TodoFilterBloc>(context),
+                    todoSearchBloc: BlocProvider.of<TodoSearchBloc>(context),
+                    todoListBloc: BlocProvider.of<TodoListBloc>(context)),
+            lazy: true),
         BlocProvider<ActiveTodoCountBlocWithListenerStateShape>(
-          create: (context) => ActiveTodoCountBlocWithListenerStateShape(
-            initialActiveTodoCount:
-                context.read<TodoListBloc>().state.todos.length,
-          ),
-        ),
+            create: (context) => ActiveTodoCountBlocWithListenerStateShape(
+                initialActiveTodoCount:
+                    context.read<TodoListBloc>().state.todos.length),
+            lazy: true),
         BlocProvider<FilteredTodosBlocWithListenerStateShape>(
-          create: (context) => FilteredTodosBlocWithListenerStateShape(
-            initialTodos: context.read<TodoListBloc>().state.todos,
-          ),
-        ),
+            create: (context) => FilteredTodosBlocWithListenerStateShape(
+                initialTodos: context.read<TodoListBloc>().state.todos),
+            lazy: true),
       ],
-      child: MaterialApp(
-        title: 'TODO',
-        debugShowCheckedModeBanner: false,
-        theme: AppThemes.darkTheme,
-        home: const HomePage(),
-      ),
+      child: const MaterialAppWidget(),
+    );
+  }
+}
+
+class MaterialAppWidget extends StatelessWidget {
+  const MaterialAppWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'TODO',
+      debugShowCheckedModeBanner: false,
+      theme: AppThemes.darkTheme,
+      home: const HomePage(),
     );
   }
 }
