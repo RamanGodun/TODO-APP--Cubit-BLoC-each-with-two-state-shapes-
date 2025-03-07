@@ -1,8 +1,8 @@
 part of 'app_settings_cubit.dart';
 
-/// 🎛️ [AppSettingsOnCubitState] manages the application settings for [AppSettingsOnCubit].
+/// 🎛️ [AppSettingsState] manages the application settings for [AppSettingsCubit].
 /// It controls whether the app is using BLoC or Cubit and manages theme preferences for both.
-class AppSettingsOnCubitState extends Equatable {
+class AppSettingsState extends Equatable {
   /// 🔁 Indicates whether the app uses BLoC or Cubit for state management.
   final bool isUsingBlocForAppFeatures;
 
@@ -11,7 +11,7 @@ class AppSettingsOnCubitState extends Equatable {
   final bool isDarkThemeForCubit;
 
   /// 🆕 Creates an immutable state for app settings.
-  const AppSettingsOnCubitState({
+  const AppSettingsState({
     required this.isUsingBlocForAppFeatures,
     required this.isDarkThemeForBloc,
     required this.isDarkThemeForCubit,
@@ -20,8 +20,8 @@ class AppSettingsOnCubitState extends Equatable {
   /// 🛠️ Returns the initial state with default values:
   /// ✅ BLoC as the state management approach
   /// 🌞 Light theme for both BLoC and Cubit.
-  factory AppSettingsOnCubitState.initial() {
-    return const AppSettingsOnCubitState(
+  factory AppSettingsState.initial() {
+    return const AppSettingsState(
       isUsingBlocForAppFeatures: true,
       isDarkThemeForBloc: false,
       isDarkThemeForCubit: false,
@@ -30,12 +30,12 @@ class AppSettingsOnCubitState extends Equatable {
 
   /// ✨ Creates a new state with optional overrides while maintaining immutability.
   /// Useful for updating only specific fields without mutating the original state.
-  AppSettingsOnCubitState copyWith({
+  AppSettingsState copyWith({
     bool? isUseBloc,
     bool? isDarkThemeForBloc,
     bool? isDarkThemeForCubit,
   }) {
-    return AppSettingsOnCubitState(
+    return AppSettingsState(
       isUsingBlocForAppFeatures: isUseBloc ?? isUsingBlocForAppFeatures,
       isDarkThemeForBloc: isDarkThemeForBloc ?? this.isDarkThemeForBloc,
       isDarkThemeForCubit: isDarkThemeForCubit ?? this.isDarkThemeForCubit,

@@ -98,3 +98,19 @@ flutter run
 ## 🔍 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+
+/*
+
+     ! NEED TO DO next:
+
+? 1. Data persistence (SQLie or Hive)
+? 2. Additional state management ("In Progress" state with CircularProgressIndicator)
+? 3. Error dialog
+? 4. Pagination (traditional or infinite scrolling)
+? 5. Use TextWidget, not Text(...)
+? 6. Use custom showDialog
+? 7. Refactor design
+? 8. Use onGenerate routes navigation if add extra pages
+
+ */

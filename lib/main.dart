@@ -1,16 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
+import 'core/app_constants/app_strings.dart';
+import 'core/app_settings_on_cubit/app_settings_cubit.dart';
 import 'core/config/app_config.dart';
 import 'core/config/observer/app_bloc_observer.dart';
-import 'core/theming/app_theme.dart';
 import 'core/utils/bloc_exports.dart';
 import 'core/utils/cubits_export.dart';
 
 import 'presentation/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = AppBlocObserver();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb
+        ? HydratedStorageDirectory.web
+        : HydratedStorageDirectory((await getTemporaryDirectory()).path),
+  );
+
   runApp(const StateManagementProvider());
 }
 
@@ -23,7 +34,7 @@ class StateManagementProvider extends StatelessWidget {
       providers: AppConfig.isAppStateShapeManagementWithListeners
           ? _createListenerStateProviders(context)
           : _createStreamSubscriptionStateProviders(context),
-      child: const MaterialAppWidget(),
+      child: const AppStateBuilder(),
     );
   }
 
@@ -90,6 +101,7 @@ class StateManagementProvider extends StatelessWidget {
 
   /// 🧩 Common Providers shared between both state shapes
   List<BlocProvider> _createCommonProviders() => [
+        BlocProvider<AppSettingsCubit>(create: (context) => AppSettingsCubit()),
         BlocProvider<TodoListCubit>(create: (context) => TodoListCubit()),
         BlocProvider<TodoFilterCubit>(
             create: (context) => TodoFilterCubit(), lazy: true),
@@ -103,33 +115,36 @@ class StateManagementProvider extends StatelessWidget {
       ];
 }
 
-class MaterialAppWidget extends StatelessWidget {
-  const MaterialAppWidget({
-    super.key,
-  });
+/// 🎯 [AppStateBuilder] selects between Bloc and Cubit state management
+class AppStateBuilder extends StatelessWidget {
+  const AppStateBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'TODO',
-      debugShowCheckedModeBanner: false,
-      theme: AppThemes.darkTheme,
-      home: const HomePage(),
+    return BlocBuilder<AppSettingsCubit, AppSettingsState>(
+      builder: (context, state) {
+        final isDarkMode = state.isUsingBlocForAppFeatures
+            ? state.isDarkThemeForBloc
+            : state.isDarkThemeForCubit;
+        return MaterialAppWidget(isDarkMode: isDarkMode);
+      },
     );
   }
 }
 
-/*
+/// 📱 [MaterialAppWidget] builds the MaterialApp with the selected theme and routing
+class MaterialAppWidget extends StatelessWidget {
+  final bool isDarkMode;
 
-     ! NEED TO DO next:
+  const MaterialAppWidget({super.key, required this.isDarkMode});
 
-? 1. Data persistence (SQLie or Hive)
-? 2. Additional state management ("In Progress" state with CircularProgressIndicator)
-? 3. Error dialog
-? 4. Pagination (traditional or infinite scrolling)
-? 5. Use TextWidget, not Text(...)
-? 6. Use custom showDialog
-? 7. Refactor design
-? 8. Use onGenerate routes navigation if add extra pages
-
- */
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: AppStrings.appTitle,
+      debugShowCheckedModeBanner: false,
+      theme: isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      home: const HomePage(),
+    );
+  }
+}
