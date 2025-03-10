@@ -1,3 +1,6 @@
+
+
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,8 +8,9 @@ import '../core/models/todo_model.dart';
 import '../core/utils/bloc_exports.dart'; // ! when using BLoC
 // import '../../core/utils/cubits_export.dart'; // ! when using CUBIT
 
-class ShowTodos extends StatelessWidget {
-  const ShowTodos({super.key});
+// !Next is with Listener state shape
+class ShowTodosWithListenerStateShape extends StatelessWidget {
+  const ShowTodosWithListenerStateShape({super.key});
 
 // ! when using BLoC
   List<Todo> setFilteredTodos(
@@ -164,7 +168,7 @@ class ShowTodos extends StatelessWidget {
                 },
               );
             },
-            child: TodoItem(todo: todos[index]),
+            child: TodoItemForListenerStaeShape(todo: todos[index]),
           );
         },
       ),
@@ -186,8 +190,8 @@ class ShowTodos extends StatelessWidget {
   }
 }
 
-class TodoItem extends StatefulWidget {
-  const TodoItem({
+class TodoItemForListenerStaeShape extends StatefulWidget {
+  const TodoItemForListenerStaeShape({
     required this.todo,
     super.key,
   });
@@ -195,10 +199,12 @@ class TodoItem extends StatefulWidget {
   final Todo todo;
 
   @override
-  State<TodoItem> createState() => _TodoItemState();
+  State<TodoItemForListenerStaeShape> createState() =>
+      _TodoItemForListenerStaeShapeState();
 }
 
-class _TodoItemState extends State<TodoItem> {
+class _TodoItemForListenerStaeShapeState
+    extends State<TodoItemForListenerStaeShape> {
   late final TextEditingController textController;
 
   @override
@@ -283,11 +289,10 @@ class _TodoItemState extends State<TodoItem> {
   }
 }
 
-/*
-!Next is with stream subscription state shape
+// !Next is with stream subscription state shape
 
-class ShowTodos extends StatelessWidget {
-  const ShowTodos({super.key});
+class ShowTodosForStreamSubscriptionStateShape extends StatelessWidget {
+  const ShowTodosForStreamSubscriptionStateShape({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -345,7 +350,7 @@ class ShowTodos extends StatelessWidget {
               },
             );
           },
-          child: TodoItem(todo: todos[index]),
+          child: TodoItemForListenerStaeShape(todo: todos[index]),
         );
       },
     );
@@ -366,8 +371,8 @@ class ShowTodos extends StatelessWidget {
   }
 }
 
-class TodoItem extends StatefulWidget {
-  const TodoItem({
+class TodoItemForStreamSubscriptionStateShape extends StatefulWidget {
+  const TodoItemForStreamSubscriptionStateShape({
     required this.todo,
     super.key,
   });
@@ -375,10 +380,10 @@ class TodoItem extends StatefulWidget {
   final Todo todo;
 
   @override
-  State<TodoItem> createState() => _TodoItemState();
+  State<TodoItemForStreamSubscriptionStateShape> createState() => _TodoItemForStreamSubscriptionStateShapeState();
 }
 
-class _TodoItemState extends State<TodoItem> {
+class _TodoItemForStreamSubscriptionStateShapeState extends State<TodoItemForStreamSubscriptionStateShape> {
   late final TextEditingController textController;
 
   @override
@@ -462,9 +467,5 @@ class _TodoItemState extends State<TodoItem> {
     );
   }
 }
-
-
-!Next is with Listener state shape
-
 
  */

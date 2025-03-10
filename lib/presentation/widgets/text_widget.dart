@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/app_constants/app_constants.dart';
+import '../../core/domain/app_constants/app_constants.dart';
 
 /// 📄 [TextWidget] is a customizable widget for displaying styled text with pre-defined text types.
 class TextWidget extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/models/todo_model.dart';
+import '../../../../core/domain/models/todo_model.dart';
 import '../../../todo_filter/on_bloc/todo_filter_bloc.dart';
 import '../../../todo_search/on_block/todo_search_bloc.dart';
 import '../../../todos_list/on_block/todo_list_bloc.dart';

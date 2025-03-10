@@ -8,19 +8,6 @@ import '../_counter_state_switching/counter_manager.dart';
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    // 🔄 Determine whether to use BLoC or Cubit and create the appropriate manager
-    final isCounterOnBloc = CounterFactory.isCounterOnBloc(context);
-    // ignore: unused_local_variable
-    final CounterManager counterManager =
-        CounterFactory.create(context, isCounterOnBloc: isCounterOnBloc);
-
-    return Scaffold(
-      body: Container(),
-    );
-  }
-}
 
 
  */

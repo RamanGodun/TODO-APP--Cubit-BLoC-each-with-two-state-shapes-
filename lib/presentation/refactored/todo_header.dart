@@ -1,27 +1,43 @@
-import 'package:flutter/material.dart';
-import '../features/header/state_switching/factory.dart';
-import 'widgets/text_widget.dart';
+// import 'package:flutter/material.dart';
+// import '../../core/state_switching/factory_for_header.dart';
+// import '../widgets/text_widget.dart';
 
-/// 📱 [TodoHeader] використовує [TodoHeaderFactory] для визначення
-/// потрібної реалізації на основі поточного стейт-менеджменту.
-class TodoHeader extends StatelessWidget {
-  const TodoHeader({super.key});
+// /// 📱 [TodoHeader] використовує [TodoHeaderFactory] для визначення
+// /// потрібної реалізації на основі поточного стейт-менеджменту.
+// class TodoHeader extends StatelessWidget {
+//   const TodoHeader({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final manager = TodoHeaderFactory.create(context);
+//   @override
+//   Widget build(BuildContext context) {
+//     final manager = TodoHeaderFactory.create(context);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const TextWidget('TODO', TextType.smallHeadline),
-        manager.buildHeaderText(),
-      ],
-    );
-  }
-}
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         const TextWidget('TODO', TextType.smallHeadline),
+//         manager.buildHeaderText(),
+//       ],
+//     );
+//   }
+// }
 
 /*
+
+    final isCounterOnBloc = CounterFactory.isCounterOnBloc(context);
+    final CounterManager counterManager =
+        CounterFactory.create(context, isCounterOnBloc: isCounterOnBloc);
+
+
+ */
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/domain/config/app_config.dart';
+import '../../core/domain/models/todo_model.dart';
+import '../../core/domain/utils/bloc_exports.dart';
+import '../widgets/text_widget.dart';
+
 /// Common reusable widget for Todo Header
 class TodoHeader extends StatelessWidget {
   const TodoHeader({super.key});
@@ -39,7 +55,6 @@ class TodoHeader extends StatelessWidget {
     );
   }
 }
-
 
 // ! NEXT for stream subscription state-shape
 class TodoHeaderForStreamSubscriptionStateShape extends StatelessWidget {
@@ -83,6 +98,3 @@ class TodoHeaderForListenerStateShape extends StatelessWidget {
     );
   }
 }
-
-
- */

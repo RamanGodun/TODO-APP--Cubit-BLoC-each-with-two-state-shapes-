@@ -1,16 +1,18 @@
-import 'package:cubit_bloc_playground_todo_app/presentation/todo_header.dart';
+import 'package:cubit_bloc_playground_todo_app/presentation/refactored/todo_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../core/app_constants/app_constants.dart';
-import '../core/app_constants/app_strings.dart';
-import '../core/app_settings_on_cubit/app_settings_cubit.dart';
-import '../core/utils/helpers.dart';
+import '../../core/domain/app_constants/app_constants.dart';
+import '../../core/domain/app_constants/app_strings.dart';
+import '../../core/domain/app_settings_on_cubit/app_settings_cubit.dart';
+import '../../core/domain/config/app_config.dart';
+import '../../core/domain/utils/helpers.dart';
+import '../show_todos_ssss.dart';
 import 'create_todo.dart';
 import 'search_and_filter_todo.dart';
-import 'show_todos.dart';
+import '../show_todos_lss.dart';
 
-import 'widgets/text_widget.dart';
+import '../widgets/text_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -63,7 +65,7 @@ class HomePage extends StatelessWidget {
               const CreateTodo(),
               const SizedBox(height: 20.0),
               SearchAndFilterTodo(),
-              const ShowTodos(),
+              const ShowTodosWithListenerStateShape(),
             ],
           ),
         ),
@@ -76,5 +78,20 @@ class HomePage extends StatelessWidget {
   /// 🕹️ Toggles the theme between light and dark.
   void _toggleTheme(BuildContext context, bool isDarkMode) {
     context.read<AppSettingsCubit>().toggleTheme(!isDarkMode);
+  }
+}
+
+/// 🏭 [ShowTodosWidget] автоматично вибирає правильну реалізацію для відображення списку Todos
+/// на основі налаштувань стейт-шейпу (Bloc або Cubit).
+class ShowTodosWidget extends StatelessWidget {
+  const ShowTodosWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isListenerStateShape =
+        AppConfig.isAppStateShapeManagementWithListeners;
+    return isListenerStateShape
+        ? const ShowTodosWithListenerStateShape()
+        : const ShowTodosForStreamSubscriptionStateShape();
   }
 }

@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'core/app_constants/app_strings.dart';
-import 'core/app_settings_on_cubit/app_settings_cubit.dart';
-import 'core/config/app_config.dart';
-import 'core/config/observer/app_bloc_observer.dart';
-import 'core/utils/bloc_exports.dart';
-import 'core/utils/cubits_export.dart';
+import 'core/domain/app_constants/app_strings.dart';
+import 'core/domain/app_settings_on_cubit/app_settings_cubit.dart';
+import 'core/domain/config/app_config.dart';
+import 'core/domain/config/observer/app_bloc_observer.dart';
+import 'core/domain/utils/bloc_exports.dart';
+import 'core/domain/utils/cubits_export.dart';
 
-import 'presentation/home_page.dart';
+import 'presentation/refactored/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +21,7 @@ void main() async {
         ? HydratedStorageDirectory.web
         : HydratedStorageDirectory((await getTemporaryDirectory()).path),
   );
+  // HydratedBloc.storage.clear(); // ! only in test mode (delete all data)
 
   runApp(const StateManagementProvider());
 }

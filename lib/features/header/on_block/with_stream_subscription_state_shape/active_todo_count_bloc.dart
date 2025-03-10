@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../../core/models/todo_model.dart';
+import '../../../../core/domain/models/todo_model.dart';
 import '../../../todos_list/on_block/todo_list_bloc.dart';
 
 part 'active_todo_count_event.dart';

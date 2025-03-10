@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../presentation/widgets/text_widget.dart';
+import '../../../presentation/widgets/text_widget.dart';
 import '../app_constants/app_constants.dart';
 import '../app_constants/app_strings.dart';
 import 'helpers.dart';

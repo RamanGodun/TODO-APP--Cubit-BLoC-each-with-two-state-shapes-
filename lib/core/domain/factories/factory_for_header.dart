@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/app_settings_on_cubit/app_settings_cubit.dart';
-import '../../../core/models/todo_model.dart';
-import '../../../core/utils/bloc_exports.dart';
-import '../../../core/utils/cubits_export.dart';
+import '../app_settings_on_cubit/app_settings_cubit.dart';
+import '../models/todo_model.dart';
+import '../utils/bloc_exports.dart';
+import '../utils/cubits_export.dart';
 import '../../../presentation/widgets/text_widget.dart';
 
 /// 🏭 [TodoHeaderFactory] динамічно повертає потрібний [TodoHeaderManager]

@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/models/todo_model.dart';
+import '../../../../core/domain/models/todo_model.dart';
 import '../../../todo_filter/on_cubit/todo_filter_cubit.dart';
 import '../../../todos_list/on_cubit/todo_list_cubit.dart';
 import '../../../todo_search/on_cubit/todo_search_cubit.dart';

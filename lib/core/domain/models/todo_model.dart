@@ -25,4 +25,20 @@ class Todo extends Equatable {
 
   @override
   String toString() => 'Todo(id: $id, desc: $desc, completed: $completed)';
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'desc': desc,
+      'completed': completed,
+    };
+  }
+
+  factory Todo.fromMap(Map<String, dynamic> map) {
+    return Todo(
+      id: map['id'] as String,
+      desc: map['desc'] as String,
+      completed: map['completed'] as bool,
+    );
+  }
 }
