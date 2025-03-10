@@ -9,7 +9,7 @@ enum AppStateShapeManagement {
 class AppConfig {
   /// 🛠️ Defines the **default state shape management approach** for the app.
   static const AppStateShapeManagement stateManagement = AppStateShapeManagement
-      .withStreamSubscription; // ! Change this to switch between [AppStateShapeManagement.withListener] and [AppStateShapeManagement.withStreamSubscription]
+      .withListener; // ! Change this to switch between [AppStateShapeManagement.withListener] and [AppStateShapeManagement.withStreamSubscription]
 
   /// ✅ **Utility getter** to check if the app is using **BLoC** for state management.
   /// Returns **true** if [AppStateShapeManagement.withListener] is active, otherwise **false**.

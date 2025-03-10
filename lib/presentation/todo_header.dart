@@ -34,8 +34,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/domain/config/app_config.dart';
-import '../core/domain/models/todo_model.dart';
-import '../core/domain/utils/bloc_exports.dart';
 import '../core/domain/utils/cubits_export.dart';
 import 'widgets/text_widget.dart';
 
@@ -78,25 +76,27 @@ class TodoHeaderForListenerStateShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<TodoListBloc, TodoListStateOnBloc>(
+    return BlocListener<TodoListCubit, TodoListStateOnCubit>(
+      // ! when using CUBIT
+      // return BlocListener<TodoListBloc, TodoListStateOnBloc>( // ! when using BLoC
       listener: (context, state) {
-        final int activeTodoCount =
-            state.todos.where((Todo todo) => !todo.completed).length;
         // ! when using CUBIT
         context
             .read<ActiveTodoCountCubitWithUsingListenerStateShape>()
-            .calculateActiveTodoCount(activeTodoCount);
-        // context.read<ActiveTodoCountBlocWithListenerStateShape>().add(
-        //     CalculateActiveTodoCountEventWithListenerStateShape(
-        //         activeTodoCount: activeTodoCount));
+            .calculateActiveTodoCount();
       },
-      child: BlocBuilder<ActiveTodoCountBlocWithListenerStateShape,
-          ActiveTodoCountStateOnBlocWithListenerStateShape>(
+      // ! when using BLoC
+      // context.read<ActiveTodoCountBlocWithListenerStateShape>().add(
+      //     CalculateActiveTodoCountEventWithListenerStateShape(
+      //         activeTodoCount: activeTodoCount));
+      child: BlocBuilder<ActiveTodoCountCubitWithUsingListenerStateShape,
+          ActiveTodoCountStateOnCubitWithUsingListenerStateShape>(
         builder: (context, state) {
           return TextWidget(
-              '${context.watch<ActiveTodoCountCubitWithUsingListenerStateShape>().state.activeTodoCount} items left', // ! when using CUBIT
-              // '${state.activeTodoCount} items left', // ! when using BLoC
-              TextType.titleMedium);
+            '${state.activeTodoCount} items left', // ! when using CUBIT
+            // '${state.activeTodoCount} items left', // ! when using BLoC
+            TextType.titleMedium,
+          );
         },
       ),
     );
