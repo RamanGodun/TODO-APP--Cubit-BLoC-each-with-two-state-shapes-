@@ -71,6 +71,47 @@ class TodoHeaderForStreamSubscriptionStateShape extends StatelessWidget {
 }
 
 // !Next is with Listener state shape
+
+class TodoHeaderForListenerStateShape extends StatelessWidget {
+  const TodoHeaderForListenerStateShape({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final todoListState = context.read<TodoListBloc>().state;
+
+    // Калькуляція активних тудушок одразу при побудові віджету
+    final int activeTodoCount =
+        todoListState.todos.where((Todo todo) => !todo.completed).length;
+
+    // Примусове оновлення `ActiveTodoCountBloc`
+    context.read<ActiveTodoCountBlocWithListenerStateShape>().add(
+        CalculateActiveTodoCountEventWithListenerStateShape(
+            activeTodoCount: activeTodoCount));
+
+    return BlocListener<TodoListBloc, TodoListStateOnBloc>(
+      listener: (context, state) {
+        final int activeTodoCount =
+            state.todos.where((Todo todo) => !todo.completed).length;
+        // ! when using CUBIT
+        // context
+        //     .read<ActiveTodoCountCubitWithUsingListenerStateShape>()
+        //     .calculateActiveTodoCount(activeTodoCount);
+        // ! when using BLoC
+        context.read<ActiveTodoCountBlocWithListenerStateShape>().add(
+            CalculateActiveTodoCountEventWithListenerStateShape(
+                activeTodoCount: activeTodoCount));
+      },
+      child: TextWidget(
+          // '${context.watch<ActiveTodoCountCubitWithUsingListenerStateShape>().state.activeTodoCount} items left', // ! when using CUBIT
+          '${context.watch<ActiveTodoCountBlocWithListenerStateShape>().state.activeTodoCount} items left',
+          TextType.titleMedium // ! when using BLoC
+          ),
+    );
+  }
+}
+
+/*
+
 class TodoHeaderForListenerStateShape extends StatelessWidget {
   const TodoHeaderForListenerStateShape({super.key});
 
@@ -98,3 +139,4 @@ class TodoHeaderForListenerStateShape extends StatelessWidget {
     );
   }
 }
+ */

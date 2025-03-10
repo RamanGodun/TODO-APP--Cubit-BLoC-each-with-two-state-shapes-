@@ -7,11 +7,9 @@ part 'active_todo_count_state.dart';
 class ActiveTodoCountBlocWithListenerStateShape extends Bloc<
     ActiveTodoCountEventWithListenerStateShape,
     ActiveTodoCountStateOnBlocWithListenerStateShape> {
-  final int initialActiveTodoCount;
-
-  ActiveTodoCountBlocWithListenerStateShape({
-    required this.initialActiveTodoCount,
-  }) : super(ActiveTodoCountStateOnBlocWithListenerStateShape(
+  ActiveTodoCountBlocWithListenerStateShape(
+      {required int initialActiveTodoCount})
+      : super(ActiveTodoCountStateOnBlocWithListenerStateShape(
             activeTodoCount: initialActiveTodoCount)) {
     on<CalculateActiveTodoCountEventWithListenerStateShape>((event, emit) {
       emit(state.copyWith(activeTodoCount: event.activeTodoCount));

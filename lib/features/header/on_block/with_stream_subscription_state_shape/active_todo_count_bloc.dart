@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/domain/models/todo_model.dart';
@@ -10,24 +9,18 @@ part 'active_todo_count_state.dart';
 class ActiveTodoCountBlocWithStreamSubscriptionStateShape extends Bloc<
     ActiveTodoCountEventWithStreamSubscriptionStateShape,
     ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape> {
-  late final StreamSubscription todoListSubscription;
-
-  final int initialActiveTodoCount;
   final TodoListBloc todoListBloc;
 
   ActiveTodoCountBlocWithStreamSubscriptionStateShape({
-    required this.initialActiveTodoCount,
     required this.todoListBloc,
+    required int initialActiveTodoCount,
   }) : super(ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape(
             activeTodoCount: initialActiveTodoCount)) {
-    todoListSubscription =
-        todoListBloc.stream.listen((TodoListStateOnBloc todoListState) {
-      print('todoListState: $todoListState');
+    _calculateInitialActiveTodos(todoListBloc.state);
 
-      final int currentActiveTodoCount = todoListState.todos
-          .where((Todo todo) => !todo.completed)
-          .toList()
-          .length;
+    todoListBloc.stream.listen((TodoListStateOnBloc todoListState) {
+      final int currentActiveTodoCount =
+          todoListState.todos.where((Todo todo) => !todo.completed).length;
 
       add(CalculateActiveTodoCountEvent(
           activeTodoCount: currentActiveTodoCount));
@@ -38,9 +31,10 @@ class ActiveTodoCountBlocWithStreamSubscriptionStateShape extends Bloc<
     });
   }
 
-  @override
-  Future<void> close() {
-    todoListSubscription.cancel();
-    return super.close();
+  void _calculateInitialActiveTodos(TodoListStateOnBloc todoListState) {
+    final int currentActiveTodoCount =
+        todoListState.todos.where((Todo todo) => !todo.completed).length;
+
+    add(CalculateActiveTodoCountEvent(activeTodoCount: currentActiveTodoCount));
   }
 }
