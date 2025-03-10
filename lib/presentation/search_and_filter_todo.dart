@@ -72,9 +72,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/domain/models/todo_model.dart';
-import '../../core/domain/utils/bloc_exports.dart';
-import '../../core/domain/utils/debounce.dart';
+import '../core/domain/models/todo_model.dart';
+import '../core/domain/utils/bloc_exports.dart';
+import '../core/domain/utils/debounce.dart';
 
 class SearchAndFilterTodo extends StatelessWidget {
   SearchAndFilterTodo({super.key});

@@ -12,7 +12,7 @@ import 'core/domain/config/observer/app_bloc_observer.dart';
 import 'core/domain/utils/bloc_exports.dart';
 import 'core/domain/utils/cubits_export.dart';
 
-import 'presentation/refactored/home_page.dart';
+import 'presentation/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,11 +79,11 @@ class StateManagementProvider extends StatelessWidget {
                     todoSearchCubit: BlocProvider.of<TodoSearchCubit>(context),
                     todoListCubit: BlocProvider.of<TodoListCubit>(context))),
         BlocProvider<ActiveTodoCountBlocWithStreamSubscriptionStateShape>(
-            create: (context) =>
-                ActiveTodoCountBlocWithStreamSubscriptionStateShape(
-                    initialActiveTodoCount:
-                        context.read<TodoListBloc>().state.todos.length,
-                    todoListBloc: BlocProvider.of<TodoListBloc>(context))),
+          create: (context) =>
+              ActiveTodoCountBlocWithStreamSubscriptionStateShape(
+            todoListBloc: BlocProvider.of<TodoListBloc>(context),
+          ),
+        ),
         BlocProvider<FilteredTodosBlocWithStreamSubscriptionStateShape>(
             create: (context) =>
                 FilteredTodosBlocWithStreamSubscriptionStateShape(
@@ -98,12 +98,10 @@ class StateManagementProvider extends StatelessWidget {
         BlocProvider<AppSettingsCubit>(create: (context) => AppSettingsCubit()),
         BlocProvider<TodoListCubit>(create: (context) => TodoListCubit()),
         BlocProvider<TodoFilterCubit>(create: (context) => TodoFilterCubit()),
-        BlocProvider<TodoSearchCubit>(
-            create: (context) => TodoSearchCubit(), lazy: true),
+        BlocProvider<TodoSearchCubit>(create: (context) => TodoSearchCubit()),
         BlocProvider<TodoListBloc>(create: (context) => TodoListBloc()),
         BlocProvider<TodoFilterBloc>(create: (context) => TodoFilterBloc()),
-        BlocProvider<TodoSearchBloc>(
-            create: (context) => TodoSearchBloc(), lazy: true),
+        BlocProvider<TodoSearchBloc>(create: (context) => TodoSearchBloc()),
       ];
 }
 

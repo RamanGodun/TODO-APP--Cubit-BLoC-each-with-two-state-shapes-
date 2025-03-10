@@ -33,10 +33,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/domain/config/app_config.dart';
-import '../../core/domain/models/todo_model.dart';
-import '../../core/domain/utils/bloc_exports.dart';
-import '../widgets/text_widget.dart';
+import '../core/domain/config/app_config.dart';
+import '../core/domain/models/todo_model.dart';
+import '../core/domain/utils/bloc_exports.dart';
+import 'widgets/text_widget.dart';
 
 /// Common reusable widget for Todo Header
 class TodoHeader extends StatelessWidget {

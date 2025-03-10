@@ -13,28 +13,30 @@ class ActiveTodoCountBlocWithStreamSubscriptionStateShape extends Bloc<
 
   ActiveTodoCountBlocWithStreamSubscriptionStateShape({
     required this.todoListBloc,
-    required int initialActiveTodoCount,
   }) : super(ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape(
-            activeTodoCount: initialActiveTodoCount)) {
-    _calculateInitialActiveTodos(todoListBloc.state);
+          activeTodoCount: _calculateInitialActiveTodos(todoListBloc.state),
+        )) {
+    on<CalculateActiveTodoCountEvent>(_onCalculate);
 
     todoListBloc.stream.listen((TodoListStateOnBloc todoListState) {
       final int currentActiveTodoCount =
           todoListState.todos.where((Todo todo) => !todo.completed).length;
 
-      add(CalculateActiveTodoCountEvent(
-          activeTodoCount: currentActiveTodoCount));
-    });
-
-    on<CalculateActiveTodoCountEvent>((event, emit) {
-      emit(state.copyWith(activeTodoCount: event.activeTodoCount));
+      if (currentActiveTodoCount != state.activeTodoCount) {
+        add(CalculateActiveTodoCountEvent(
+            activeTodoCount: currentActiveTodoCount));
+      }
     });
   }
 
-  void _calculateInitialActiveTodos(TodoListStateOnBloc todoListState) {
-    final int currentActiveTodoCount =
-        todoListState.todos.where((Todo todo) => !todo.completed).length;
+  static int _calculateInitialActiveTodos(TodoListStateOnBloc todoListState) {
+    return todoListState.todos.where((Todo todo) => !todo.completed).length;
+  }
 
-    add(CalculateActiveTodoCountEvent(activeTodoCount: currentActiveTodoCount));
+  void _onCalculate(
+    CalculateActiveTodoCountEvent event,
+    Emitter<ActiveTodoCountStateOnBlocWithStreamSubscriptionStateShape> emit,
+  ) {
+    emit(state.copyWith(activeTodoCount: event.activeTodoCount));
   }
 }
