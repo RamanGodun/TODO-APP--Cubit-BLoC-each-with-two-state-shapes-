@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 import '../../../../core/domain/models/todo_model.dart';
 import '../../../todos_list/on_cubit/todo_list_cubit.dart';
 
@@ -12,25 +10,36 @@ class ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape extends Cubit<
     ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape> {
   late final StreamSubscription todoListSubscription;
 
-  final int initialActiveTodoCount;
   final TodoListCubit todoListCubit;
 
   ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape({
-    required this.initialActiveTodoCount,
     required this.todoListCubit,
-  }) : super(ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape(
-            activeTodoCount: initialActiveTodoCount)) {
+  }) : super(
+          ActiveTodoCountStateOnCubitWithUsingStreamSubscriptionStateShape(
+              activeTodoCount: _calculateInitialActiveTodos(todoListCubit)),
+        ) {
+    // 📡 Підписка на зміни у TodoListCubit
     todoListSubscription =
         todoListCubit.stream.listen((TodoListStateOnCubit todoListState) {
       print('todoListState: $todoListState');
 
-      final int currentActiveTodoCount = todoListState.todos
-          .where((Todo todo) => !todo.completed)
-          .toList()
-          .length;
+      final int currentActiveTodoCount = _calculateActiveTodos(todoListState);
 
-      emit(state.copyWith(activeTodoCount: currentActiveTodoCount));
+      // 🚦 Перевірка перед оновленням стану
+      if (currentActiveTodoCount != state.activeTodoCount) {
+        emit(state.copyWith(activeTodoCount: currentActiveTodoCount));
+      }
     });
+  }
+
+  // 📊 Метод для розрахунку кількості активних тудушок на старті
+  static int _calculateInitialActiveTodos(TodoListCubit todoListCubit) {
+    return _calculateActiveTodos(todoListCubit.state);
+  }
+
+  // 📈 Метод для розрахунку активних тудушок
+  static int _calculateActiveTodos(TodoListStateOnCubit todoListState) {
+    return todoListState.todos.where((Todo todo) => !todo.completed).length;
   }
 
   @override

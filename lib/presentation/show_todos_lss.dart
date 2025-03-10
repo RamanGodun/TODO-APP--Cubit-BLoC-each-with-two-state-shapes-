@@ -48,8 +48,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../core/domain/models/todo_model.dart';
-import '../core/domain/utils/bloc_exports.dart';
+import '../core/domain/utils/cubits_export.dart';
 import 'todo_item.dart';
 import 'widgets/mini_widgets.dart'; // ! when using BLoC
 // import '../../core/utils/cubits_export.dart'; // ! when using CUBIT
@@ -59,119 +58,119 @@ class ShowTodosWithListenerStateShape extends StatelessWidget {
   const ShowTodosWithListenerStateShape({super.key});
 
 // ! when using BLoC
-  List<Todo> setFilteredTodos(
-    Filter filter,
-    List<Todo> todos,
-    String searchTerm,
-  ) {
-    List<Todo> filteredTodos;
+  // List<Todo> setFilteredTodos(
+  //   Filter filter,
+  //   List<Todo> todos,
+  //   String searchTerm,
+  // ) {
+  //   List<Todo> filteredTodos;
 
-    switch (filter) {
-      case Filter.active:
-        filteredTodos = todos.where((Todo todo) => !todo.completed).toList();
-        break;
-      case Filter.completed:
-        filteredTodos = todos.where((Todo todo) => todo.completed).toList();
-        break;
-      case Filter.all:
-        filteredTodos = todos;
-        break;
-    }
+  //   switch (filter) {
+  //     case Filter.active:
+  //       filteredTodos = todos.where((Todo todo) => !todo.completed).toList();
+  //       break;
+  //     case Filter.completed:
+  //       filteredTodos = todos.where((Todo todo) => todo.completed).toList();
+  //       break;
+  //     case Filter.all:
+  //       filteredTodos = todos;
+  //       break;
+  //   }
 
-    if (searchTerm.isNotEmpty) {
-      filteredTodos = filteredTodos
-          .where((Todo todo) =>
-              todo.desc.toLowerCase().contains(searchTerm.toLowerCase()))
-          .toList();
-    }
-    return filteredTodos;
-  }
+  //   if (searchTerm.isNotEmpty) {
+  //     filteredTodos = filteredTodos
+  //         .where((Todo todo) =>
+  //             todo.desc.toLowerCase().contains(searchTerm.toLowerCase()))
+  //         .toList();
+  //   }
+  //   return filteredTodos;
+  // }
 // ! till this point when using BLoC (when Cubit this code absent)
 
   @override
   Widget build(BuildContext context) {
-    // final todos = context
-    //     .watch<FilteredTodosCubitWithListenerStateShape>()
-    //     .state
-    //     .filteredTodos; // ! when using CUBIT
     final todos = context
-        .watch<FilteredTodosBlocWithListenerStateShape>()
+        .watch<FilteredTodosCubitWithListenerStateShape>()
         .state
-        .filteredTodos; // ! when using BLoC
+        .filteredTodos; // ! when using CUBIT
+    // final todos = context
+    //     .watch<FilteredTodosBlocWithListenerStateShape>()
+    //     .state
+    //     .filteredTodos; // ! when using BLoC
 
     return MultiBlocListener(
       listeners: [
 // ! when using CUBIT
-        // BlocListener<TodoListCubit, TodoListStateOnCubit>(
-        //   listener: (context, state) {
-        //     context
-        //         .read<FilteredTodosCubitWithListenerStateShape>()
-        //         .setFilteredTodos(
-        //           context.read<TodoFilterCubit>().state.filter,
-        //           state.todos,
-        //           context.read<TodoSearchCubit>().state.searchTerm,
-        //         );
-        //   },
-        // ),
-        // BlocListener<TodoFilterCubit, TodoFilterStateOnCubit>(
-        //   listener: (context, state) {
-        //     context
-        //         .read<FilteredTodosCubitWithListenerStateShape>()
-        //         .setFilteredTodos(
-        //           state.filter,
-        //           context.read<TodoListCubit>().state.todos,
-        //           context.read<TodoSearchCubit>().state.searchTerm,
-        //         );
-        //   },
-        // ),
-        // BlocListener<TodoSearchCubit, TodoSearchStateOnCubit>(
-        //   listener: (context, state) {
-        //     context
-        //         .read<FilteredTodosCubitWithListenerStateShape>()
-        //         .setFilteredTodos(
-        //           context.read<TodoFilterCubit>().state.filter,
-        //           context.read<TodoListCubit>().state.todos,
-        //           state.searchTerm,
-        //         );
-        //   },
-        // ),
+        BlocListener<TodoListCubit, TodoListStateOnCubit>(
+          listener: (context, state) {
+            context
+                .read<FilteredTodosCubitWithListenerStateShape>()
+                .setFilteredTodos(
+                  context.read<TodoFilterCubit>().state.filter,
+                  state.todos,
+                  context.read<TodoSearchCubit>().state.searchTerm,
+                );
+          },
+        ),
+        BlocListener<TodoFilterCubit, TodoFilterStateOnCubit>(
+          listener: (context, state) {
+            context
+                .read<FilteredTodosCubitWithListenerStateShape>()
+                .setFilteredTodos(
+                  state.filter,
+                  context.read<TodoListCubit>().state.todos,
+                  context.read<TodoSearchCubit>().state.searchTerm,
+                );
+          },
+        ),
+        BlocListener<TodoSearchCubit, TodoSearchStateOnCubit>(
+          listener: (context, state) {
+            context
+                .read<FilteredTodosCubitWithListenerStateShape>()
+                .setFilteredTodos(
+                  context.read<TodoFilterCubit>().state.filter,
+                  context.read<TodoListCubit>().state.todos,
+                  state.searchTerm,
+                );
+          },
+        ),
         // ! when using BLoC
-        BlocListener<TodoListBloc, TodoListStateOnBloc>(
-          listener: (context, state) {
-            final filteredTodos = setFilteredTodos(
-              context.read<TodoFilterBloc>().state.filter,
-              state.todos,
-              context.read<TodoSearchBloc>().state.searchTerm,
-            );
-            context.read<FilteredTodosBlocWithListenerStateShape>().add(
-                CalculateFilteredTodosEventWithListenerStateShape(
-                    filteredTodos: filteredTodos));
-          },
-        ),
-        BlocListener<TodoFilterBloc, TodoFilterStateOnBloc>(
-          listener: (context, state) {
-            final filteredTodos = setFilteredTodos(
-              state.filter,
-              context.read<TodoListBloc>().state.todos,
-              context.read<TodoSearchBloc>().state.searchTerm,
-            );
-            context.read<FilteredTodosBlocWithListenerStateShape>().add(
-                CalculateFilteredTodosEventWithListenerStateShape(
-                    filteredTodos: filteredTodos));
-          },
-        ),
-        BlocListener<TodoSearchBloc, TodoSearchStateOnBloc>(
-          listener: (context, state) {
-            final filteredTodos = setFilteredTodos(
-              context.read<TodoFilterBloc>().state.filter,
-              context.read<TodoListBloc>().state.todos,
-              state.searchTerm,
-            );
-            context.read<FilteredTodosBlocWithListenerStateShape>().add(
-                CalculateFilteredTodosEventWithListenerStateShape(
-                    filteredTodos: filteredTodos));
-          },
-        ),
+      //   BlocListener<TodoListBloc, TodoListStateOnBloc>(
+      //     listener: (context, state) {
+      //       final filteredTodos = setFilteredTodos(
+      //         context.read<TodoFilterBloc>().state.filter,
+      //         state.todos,
+      //         context.read<TodoSearchBloc>().state.searchTerm,
+      //       );
+      //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
+      //           CalculateFilteredTodosEventWithListenerStateShape(
+      //               filteredTodos: filteredTodos));
+      //     },
+      //   ),
+      //   BlocListener<TodoFilterBloc, TodoFilterStateOnBloc>(
+      //     listener: (context, state) {
+      //       final filteredTodos = setFilteredTodos(
+      //         state.filter,
+      //         context.read<TodoListBloc>().state.todos,
+      //         context.read<TodoSearchBloc>().state.searchTerm,
+      //       );
+      //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
+      //           CalculateFilteredTodosEventWithListenerStateShape(
+      //               filteredTodos: filteredTodos));
+      //     },
+      //   ),
+      //   BlocListener<TodoSearchBloc, TodoSearchStateOnBloc>(
+      //     listener: (context, state) {
+      //       final filteredTodos = setFilteredTodos(
+      //         context.read<TodoFilterBloc>().state.filter,
+      //         context.read<TodoListBloc>().state.todos,
+      //         state.searchTerm,
+      //       );
+      //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
+      //           CalculateFilteredTodosEventWithListenerStateShape(
+      //               filteredTodos: filteredTodos));
+      //     },
+      //   ),
       ],
       child: ListView.separated(
         primary: false,
@@ -186,11 +185,11 @@ class ShowTodosWithListenerStateShape extends StatelessWidget {
             background: const DismissibleBackground(0),
             secondaryBackground: const DismissibleBackground(1),
             onDismissed: (_) {
-              // context
-              //     .read<TodoListCubit>()
-              //     .removeTodo(todos[index]); // ! when using CUBIT
-              context.read<TodoListBloc>().add(
-                  RemoveTodoEvent(todo: todos[index])); // ! when using BLoC
+              context
+                  .read<TodoListCubit>()
+                  .removeTodo(todos[index]); // ! when using CUBIT
+              // context.read<TodoListBloc>().add(
+              //     RemoveTodoEvent(todo: todos[index])); // ! when using BLoC
             },
             confirmDismiss: (_) {
               return showDialog(

@@ -73,7 +73,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/domain/models/todo_model.dart';
-import '../core/domain/utils/bloc_exports.dart';
+import '../core/domain/utils/cubits_export.dart';
 import '../core/domain/utils/debounce.dart';
 
 class SearchAndFilterTodo extends StatelessWidget {
@@ -92,21 +92,21 @@ class SearchAndFilterTodo extends StatelessWidget {
             prefixIcon: Icon(Icons.search),
           ),
 // ! When using CUBIT
-          // onChanged: (String? newSearchTerm) {
-          //   if (newSearchTerm != null) {
-          //     debounce.run(() {
-          //       context.read<TodoSearchCubit>().setSearchTerm(newSearchTerm);
-          //     });
-          //   }
-          // },
-// ! When using BLoC
           onChanged: (String? newSearchTerm) {
             if (newSearchTerm != null) {
-              context
-                  .read<TodoSearchBloc>()
-                  .add(SetSearchTermEvent(newSearchTerm: newSearchTerm));
+              debounce.run(() {
+                context.read<TodoSearchCubit>().setSearchTerm(newSearchTerm);
+              });
             }
           },
+// ! When using BLoC
+          //   onChanged: (String? newSearchTerm) {
+          //     if (newSearchTerm != null) {
+          //       context
+          //           .read<TodoSearchBloc>()
+          //           .add(SetSearchTermEvent(newSearchTerm: newSearchTerm));
+          //     }
+          //   },
         ),
         const SizedBox(height: 10.0),
         Row(
@@ -125,11 +125,11 @@ class SearchAndFilterTodo extends StatelessWidget {
     return TextButton(
       onPressed: () {
 // ! When using CUBIT
-        // context.read<TodoFilterCubit>().changeFilter(filter);
+        context.read<TodoFilterCubit>().changeFilter(filter);
 // ! When using BLoC
-        context
-            .read<TodoFilterBloc>()
-            .add(ChangeFilterEvent(newFilter: filter));
+        // context
+        //     .read<TodoFilterBloc>()
+        //     .add(ChangeFilterEvent(newFilter: filter));
       },
       child: Text(
         filter == Filter.all
@@ -147,9 +147,9 @@ class SearchAndFilterTodo extends StatelessWidget {
 
   Color textColor(BuildContext context, Filter filter) {
 // ! When using CUBIT
-    // final currentFilter = context.watch<TodoFilterCubit>().state.filter;
+    final currentFilter = context.watch<TodoFilterCubit>().state.filter;
 // ! When using BLoC
-    final currentFilter = context.watch<TodoFilterBloc>().state.filter;
+    // final currentFilter = context.watch<TodoFilterBloc>().state.filter;
     return currentFilter == filter ? Colors.blue : Colors.grey;
   }
 }

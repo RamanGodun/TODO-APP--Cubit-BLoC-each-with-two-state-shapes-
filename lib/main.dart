@@ -68,9 +68,7 @@ class StateManagementProvider extends StatelessWidget {
         BlocProvider<ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape>(
             create: (context) =>
                 ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape(
-                    initialActiveTodoCount:
-                        context.read<TodoListCubit>().state.todos.length,
-                    todoListCubit: BlocProvider.of<TodoListCubit>(context))),
+                    todoListCubit: context.read<TodoListCubit>())),
         BlocProvider<FilteredTodosCubitWithStreamSubscriptionStateShape>(
             create: (context) =>
                 FilteredTodosCubitWithStreamSubscriptionStateShape(

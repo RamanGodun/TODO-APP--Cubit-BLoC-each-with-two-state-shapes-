@@ -36,6 +36,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../core/domain/config/app_config.dart';
 import '../core/domain/models/todo_model.dart';
 import '../core/domain/utils/bloc_exports.dart';
+import '../core/domain/utils/cubits_export.dart';
 import 'widgets/text_widget.dart';
 
 /// Common reusable widget for Todo Header
@@ -63,8 +64,8 @@ class TodoHeaderForStreamSubscriptionStateShape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      // '${context.watch<ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape>().state.activeTodoCount} items left', // ! when using cubit
-      '${context.watch<ActiveTodoCountBlocWithStreamSubscriptionStateShape>().state.activeTodoCount} items left', // ! when using bloc
+      '${context.watch<ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape>().state.activeTodoCount} items left', // ! when using cubit
+      // '${context.watch<ActiveTodoCountBlocWithStreamSubscriptionStateShape>().state.activeTodoCount} items left', // ! when using bloc
       style: const TextStyle(fontSize: 20.0, color: Colors.redAccent),
     );
   }
@@ -82,19 +83,19 @@ class TodoHeaderForListenerStateShape extends StatelessWidget {
         final int activeTodoCount =
             state.todos.where((Todo todo) => !todo.completed).length;
         // ! when using CUBIT
-        // context
-        //     .read<ActiveTodoCountCubitWithUsingListenerStateShape>()
-        //     .calculateActiveTodoCount(activeTodoCount);
-        context.read<ActiveTodoCountBlocWithListenerStateShape>().add(
-            CalculateActiveTodoCountEventWithListenerStateShape(
-                activeTodoCount: activeTodoCount));
+        context
+            .read<ActiveTodoCountCubitWithUsingListenerStateShape>()
+            .calculateActiveTodoCount(activeTodoCount);
+        // context.read<ActiveTodoCountBlocWithListenerStateShape>().add(
+        //     CalculateActiveTodoCountEventWithListenerStateShape(
+        //         activeTodoCount: activeTodoCount));
       },
       child: BlocBuilder<ActiveTodoCountBlocWithListenerStateShape,
           ActiveTodoCountStateOnBlocWithListenerStateShape>(
         builder: (context, state) {
           return TextWidget(
-              // '${context.watch<ActiveTodoCountCubitWithUsingListenerStateShape>().state.activeTodoCount} items left', // ! when using CUBIT
-              '${state.activeTodoCount} items left', // ! when using BLoC
+              '${context.watch<ActiveTodoCountCubitWithUsingListenerStateShape>().state.activeTodoCount} items left', // ! when using CUBIT
+              // '${state.activeTodoCount} items left', // ! when using BLoC
               TextType.titleMedium);
         },
       ),

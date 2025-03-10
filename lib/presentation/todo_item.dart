@@ -91,7 +91,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/domain/models/todo_model.dart';
-import '../core/domain/utils/bloc_exports.dart';
+import '../core/domain/utils/cubits_export.dart';
 
 class TodoItem extends StatefulWidget {
   final Todo todo;
@@ -142,17 +142,17 @@ class _TodoItemState extends State<TodoItem> {
                           error = textController.text.isEmpty ? true : false;
                           if (!error) {
 // ! when using CUBIT
-                            // context.read<TodoListCubit>().editTodo(
-                            //       widget.todo.id,
-                            //       textController.text,
-                            //     );
-// ! when using BLoC
-                            context.read<TodoListBloc>().add(
-                                  EditTodoEvent(
-                                    id: widget.todo.id,
-                                    todoDesc: textController.text,
-                                  ),
+                            context.read<TodoListCubit>().editTodo(
+                                  widget.todo.id,
+                                  textController.text,
                                 );
+// ! when using BLoC
+                            // context.read<TodoListBloc>().add(
+                            //       EditTodoEvent(
+                            //         id: widget.todo.id,
+                            //         todoDesc: textController.text,
+                            //       ),
+                            //     );
                             Navigator.pop(context);
                           }
                         });
@@ -170,9 +170,9 @@ class _TodoItemState extends State<TodoItem> {
         value: widget.todo.completed,
         onChanged: (bool? checked) {
 // ! when using CUBIT
-          // context.read<TodoListCubit>().toggleTodo(widget.todo.id);
+          context.read<TodoListCubit>().toggleTodo(widget.todo.id);
 // ! when using BLoC
-          context.read<TodoListBloc>().add(ToggleTodoEvent(id: widget.todo.id));
+          // context.read<TodoListBloc>().add(ToggleTodoEvent(id: widget.todo.id));
         },
       ),
       title: Text(widget.todo.desc),

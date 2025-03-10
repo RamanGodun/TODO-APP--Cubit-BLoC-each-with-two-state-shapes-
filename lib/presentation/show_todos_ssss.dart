@@ -49,7 +49,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../core/domain/utils/bloc_exports.dart';
+import '../core/domain/utils/cubits_export.dart';
 import 'todo_item.dart';
 import 'widgets/mini_widgets.dart';
 
@@ -58,14 +58,14 @@ class ShowTodosForStreamSubscriptionStateShape extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final todos = context
-    //     .watch<FilteredTodosCubitWithStreamSubscriptionStateShape>()
-    //     .state
-    //     .filteredTodos; // ! when using CUBIT
     final todos = context
-        .watch<FilteredTodosBlocWithStreamSubscriptionStateShape>()
+        .watch<FilteredTodosCubitWithStreamSubscriptionStateShape>()
         .state
-        .filteredTodos; // ! when using BLoC
+        .filteredTodos; // ! when using CUBIT
+    // final todos = context
+    //     .watch<FilteredTodosBlocWithStreamSubscriptionStateShape>()
+    //     .state
+    //     .filteredTodos; // ! when using BLoC
 
     return ListView.separated(
       // ? next two is the alternative using Expanded widget to avoid "unconstrained..." bug
@@ -81,15 +81,15 @@ class ShowTodosForStreamSubscriptionStateShape extends StatelessWidget {
           background: const DismissibleBackground(0),
           secondaryBackground: const DismissibleBackground(1),
 // ! when using CUBIT
-          // onDismissed: (_) {
-          //   context.read<TodoListCubit>().removeTodo(todos[index]);
-          // },
-// ! when using BLoC
           onDismissed: (_) {
-            context
-                .read<TodoListBloc>()
-                .add(RemoveTodoEvent(todo: todos[index]));
+            context.read<TodoListCubit>().removeTodo(todos[index]);
           },
+// ! when using BLoC
+          // onDismissed: (_) {
+          //   context
+          //       .read<TodoListBloc>()
+          //       .add(RemoveTodoEvent(todo: todos[index]));
+          // },
           confirmDismiss: (_) {
             return showDialog(
               context: context,
