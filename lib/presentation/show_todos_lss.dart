@@ -135,42 +135,42 @@ class ShowTodosWithListenerStateShape extends StatelessWidget {
           },
         ),
         // ! when using BLoC
-      //   BlocListener<TodoListBloc, TodoListStateOnBloc>(
-      //     listener: (context, state) {
-      //       final filteredTodos = setFilteredTodos(
-      //         context.read<TodoFilterBloc>().state.filter,
-      //         state.todos,
-      //         context.read<TodoSearchBloc>().state.searchTerm,
-      //       );
-      //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
-      //           CalculateFilteredTodosEventWithListenerStateShape(
-      //               filteredTodos: filteredTodos));
-      //     },
-      //   ),
-      //   BlocListener<TodoFilterBloc, TodoFilterStateOnBloc>(
-      //     listener: (context, state) {
-      //       final filteredTodos = setFilteredTodos(
-      //         state.filter,
-      //         context.read<TodoListBloc>().state.todos,
-      //         context.read<TodoSearchBloc>().state.searchTerm,
-      //       );
-      //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
-      //           CalculateFilteredTodosEventWithListenerStateShape(
-      //               filteredTodos: filteredTodos));
-      //     },
-      //   ),
-      //   BlocListener<TodoSearchBloc, TodoSearchStateOnBloc>(
-      //     listener: (context, state) {
-      //       final filteredTodos = setFilteredTodos(
-      //         context.read<TodoFilterBloc>().state.filter,
-      //         context.read<TodoListBloc>().state.todos,
-      //         state.searchTerm,
-      //       );
-      //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
-      //           CalculateFilteredTodosEventWithListenerStateShape(
-      //               filteredTodos: filteredTodos));
-      //     },
-      //   ),
+        //   BlocListener<TodoListBloc, TodoListStateOnBloc>(
+        //     listener: (context, state) {
+        //       final filteredTodos = setFilteredTodos(
+        //         context.read<TodoFilterBloc>().state.filter,
+        //         state.todos,
+        //         context.read<TodoSearchBloc>().state.searchTerm,
+        //       );
+        //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
+        //           CalculateFilteredTodosEventWithListenerStateShape(
+        //               filteredTodos: filteredTodos));
+        //     },
+        //   ),
+        //   BlocListener<TodoFilterBloc, TodoFilterStateOnBloc>(
+        //     listener: (context, state) {
+        //       final filteredTodos = setFilteredTodos(
+        //         state.filter,
+        //         context.read<TodoListBloc>().state.todos,
+        //         context.read<TodoSearchBloc>().state.searchTerm,
+        //       );
+        //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
+        //           CalculateFilteredTodosEventWithListenerStateShape(
+        //               filteredTodos: filteredTodos));
+        //     },
+        //   ),
+        //   BlocListener<TodoSearchBloc, TodoSearchStateOnBloc>(
+        //     listener: (context, state) {
+        //       final filteredTodos = setFilteredTodos(
+        //         context.read<TodoFilterBloc>().state.filter,
+        //         context.read<TodoListBloc>().state.todos,
+        //         state.searchTerm,
+        //       );
+        //       context.read<FilteredTodosBlocWithListenerStateShape>().add(
+        //           CalculateFilteredTodosEventWithListenerStateShape(
+        //               filteredTodos: filteredTodos));
+        //     },
+        //   ),
       ],
       child: ListView.separated(
         primary: false,
