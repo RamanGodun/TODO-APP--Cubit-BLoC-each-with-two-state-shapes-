@@ -6,10 +6,10 @@ final class TodoListStateOnBloc extends Equatable {
   });
 
   factory TodoListStateOnBloc.initial() {
-    return TodoListStateOnBloc(todos: [
-      Todo(id: '1', desc: 'Clean the room'),
-      Todo(id: '2', desc: 'Wash the dish'),
-      Todo(id: '3', desc: 'Do homework'),
+    return const TodoListStateOnBloc(todos: [
+      // Todo(id: '1', desc: 'Clean the room'),
+      // Todo(id: '2', desc: 'Wash the dish'),
+      // Todo(id: '3', desc: 'Do homework'),
     ]);
   }
 

@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'core/domain/app_constants/app_strings.dart';
 import 'core/domain/app_settings_on_cubit/app_settings_cubit.dart';
+import 'core/domain/app_settings_on_cubit/loader.dart';
 import 'core/domain/config/app_config.dart';
 import 'core/domain/config/observer/app_bloc_observer.dart';
 import 'core/domain/utils/bloc_exports.dart';
@@ -46,21 +47,17 @@ class StateManagementProvider extends StatelessWidget {
             create: (context) =>
                 ActiveTodoCountCubitWithUsingListenerStateShape(
                     initialActiveTodoCount:
-                        context.read<TodoListCubit>().state.todos.length),
-            lazy: true),
+                        context.read<TodoListCubit>().state.todos.length)),
         BlocProvider<FilteredTodosCubitWithListenerStateShape>(
             create: (context) => FilteredTodosCubitWithListenerStateShape(
-                initialTodos: context.read<TodoListCubit>().state.todos),
-            lazy: true),
+                initialTodos: context.read<TodoListCubit>().state.todos)),
         BlocProvider<ActiveTodoCountBlocWithListenerStateShape>(
             create: (context) => ActiveTodoCountBlocWithListenerStateShape(
-                initialActiveTodoCount:
-                    context.read<TodoListBloc>().state.todos.length),
-            lazy: true),
+                  todoListBloc: context.read<TodoListBloc>(),
+                )),
         BlocProvider<FilteredTodosBlocWithListenerStateShape>(
             create: (context) => FilteredTodosBlocWithListenerStateShape(
-                initialTodos: context.read<TodoListBloc>().state.todos),
-            lazy: true),
+                initialTodos: context.read<TodoListBloc>().state.todos)),
       ];
 
   /// 🟦 Providers for "Stream Subscription" state-shape
@@ -73,44 +70,38 @@ class StateManagementProvider extends StatelessWidget {
                 ActiveTodoCountCubitWithUsingStreamSubscriptionStateShape(
                     initialActiveTodoCount:
                         context.read<TodoListCubit>().state.todos.length,
-                    todoListCubit: BlocProvider.of<TodoListCubit>(context)),
-            lazy: true),
+                    todoListCubit: BlocProvider.of<TodoListCubit>(context))),
         BlocProvider<FilteredTodosCubitWithStreamSubscriptionStateShape>(
             create: (context) =>
                 FilteredTodosCubitWithStreamSubscriptionStateShape(
                     initialTodos: context.read<TodoListCubit>().state.todos,
                     todoFilterCubit: BlocProvider.of<TodoFilterCubit>(context),
                     todoSearchCubit: BlocProvider.of<TodoSearchCubit>(context),
-                    todoListCubit: BlocProvider.of<TodoListCubit>(context)),
-            lazy: true),
+                    todoListCubit: BlocProvider.of<TodoListCubit>(context))),
         BlocProvider<ActiveTodoCountBlocWithStreamSubscriptionStateShape>(
             create: (context) =>
                 ActiveTodoCountBlocWithStreamSubscriptionStateShape(
                     initialActiveTodoCount:
                         context.read<TodoListBloc>().state.todos.length,
-                    todoListBloc: BlocProvider.of<TodoListBloc>(context)),
-            lazy: true),
+                    todoListBloc: BlocProvider.of<TodoListBloc>(context))),
         BlocProvider<FilteredTodosBlocWithStreamSubscriptionStateShape>(
             create: (context) =>
                 FilteredTodosBlocWithStreamSubscriptionStateShape(
                     initialTodos: context.read<TodoListBloc>().state.todos,
                     todoFilterBloc: BlocProvider.of<TodoFilterBloc>(context),
                     todoSearchBloc: BlocProvider.of<TodoSearchBloc>(context),
-                    todoListBloc: BlocProvider.of<TodoListBloc>(context)),
-            lazy: true),
+                    todoListBloc: BlocProvider.of<TodoListBloc>(context))),
       ];
 
   /// 🧩 Common Providers shared between both state shapes
   List<BlocProvider> _createCommonProviders() => [
         BlocProvider<AppSettingsCubit>(create: (context) => AppSettingsCubit()),
         BlocProvider<TodoListCubit>(create: (context) => TodoListCubit()),
-        BlocProvider<TodoFilterCubit>(
-            create: (context) => TodoFilterCubit(), lazy: true),
+        BlocProvider<TodoFilterCubit>(create: (context) => TodoFilterCubit()),
         BlocProvider<TodoSearchCubit>(
             create: (context) => TodoSearchCubit(), lazy: true),
         BlocProvider<TodoListBloc>(create: (context) => TodoListBloc()),
-        BlocProvider<TodoFilterBloc>(
-            create: (context) => TodoFilterBloc(), lazy: true),
+        BlocProvider<TodoFilterBloc>(create: (context) => TodoFilterBloc()),
         BlocProvider<TodoSearchBloc>(
             create: (context) => TodoSearchBloc(), lazy: true),
       ];
@@ -122,13 +113,31 @@ class AppStateBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppSettingsCubit, AppSettingsState>(
-      builder: (context, state) {
-        final isDarkMode = state.isUsingBlocForAppFeatures
-            ? state.isDarkThemeForBloc
-            : state.isDarkThemeForCubit;
-        return MaterialAppWidget(isDarkMode: isDarkMode);
-      },
+    return BlocProvider<GlobalLoaderCubit>(
+      create: (_) => GlobalLoaderCubit(),
+      child: BlocListener<GlobalLoaderCubit, bool>(
+        listener: (context, isLoading) {
+          if (isLoading) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else {
+            Navigator.of(context, rootNavigator: true).pop();
+          }
+        },
+        child: BlocBuilder<AppSettingsCubit, AppSettingsState>(
+          builder: (context, state) {
+            final isDarkMode = state.isUsingBlocForAppFeatures
+                ? state.isDarkThemeForBloc
+                : state.isDarkThemeForCubit;
+            return MaterialAppWidget(isDarkMode: isDarkMode);
+          },
+        ),
+      ),
     );
   }
 }
